@@ -66,12 +66,7 @@ isSummary sentence =
 
 isNotPdfMetadata ∷ String → Bool
 isNotPdfMetadata text =
-  not (isPdfMetadata text)
-
-
-isPdfMetadata ∷ String → Bool
-isPdfMetadata text =
-  "<<\n" `isPrefixOf` text
+  not ("<<\n" `isPrefixOf` text)
 
 
 -- The Railway operator
