@@ -54,8 +54,8 @@ paragraphs html =
 
 
 findSummary ∷ [String] → Maybe String
-findSummary text =
-  case filter isSummary text of
+findSummary phrases =
+  case filter isSummary phrases of
     [x] → Just x
     _   → Nothing
 
