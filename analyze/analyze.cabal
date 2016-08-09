@@ -20,10 +20,8 @@ executable analyze
                        , aeson
                        , aeson-pretty
                        , base-unicode-symbols
-                       , bytestring
                        , HandsomeSoup
                        , hxt
                        , regex-compat
                        , regex-posix
-                       , split
                        , text

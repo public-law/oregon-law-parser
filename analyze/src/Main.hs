@@ -6,7 +6,6 @@ module Main where
 
 import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
-import           Data.ByteString.Lazy     (putStr)
 import           Data.List                (isPrefixOf, nub, sort)
 import           Data.Maybe               (fromMaybe)
 import           GHC.Generics
