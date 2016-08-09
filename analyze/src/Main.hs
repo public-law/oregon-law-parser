@@ -30,7 +30,7 @@ main = do
   html ← getContents
   let amendment = newAmendment html
   Data.ByteString.Lazy.putStr (encodePretty amendment)
-  putStrLn ""
+  Prelude.putStr "\n"
 
 
 newAmendment ∷ String → Amendment
