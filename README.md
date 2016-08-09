@@ -1,6 +1,6 @@
 # analyze-ors-amendment-haskell
 
-A command line app for extracting information from an Oregon Amendment in HTML, and outputting JSON:
+A command line app, `analyze` which extracts info from an Oregon Amendment (in HTML), and outputs JSON:
 
 ```sh
 $ pdf2html 2016orLaw0001.pdf | analyze
