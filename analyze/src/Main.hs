@@ -36,11 +36,13 @@ main = do
     |> putStrLn
 
 
-
 newAmendment ∷ String → Amendment
 newAmendment html =
   Amendment {
-    summary = fromMaybe "(Summary is not available)" $ findSummary $ paragraphs html
+    summary = html
+                |> paragraphs
+                |> findSummary
+                |> fromMaybe "(Summary is not available)"
   }
 
 
