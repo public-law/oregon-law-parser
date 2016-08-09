@@ -36,4 +36,4 @@ alias pdf2html="java -jar ~/lib/tika-app.jar --html"
 
 # An intermediate step to improve flexibility
 
-This decouples the data import process: instead of writing more Ruby code for my Rails app, this JSON is a go-between format. This way I can experiment with other languages.
+This decouples the data import process: instead of writing more Ruby code for my Rails app, the JSON data is a go-between format. In this way I can, e.g. use with other languages like Haskell when appropriate.
