@@ -19,8 +19,7 @@ import           Text.XML.HXT.Core
 
 data Amendment =
   Amendment {
-      summary ∷ String,
-      text    ∷ [String]
+      summary ∷ String
     } deriving (Show, Generic)
 
 instance ToJSON Amendment
@@ -31,13 +30,13 @@ main = do
   html ← getContents
   let amendment = newAmendment html
   Data.ByteString.Lazy.putStr (encodePretty amendment)
+  putStrLn ""
 
 
 newAmendment ∷ String → Amendment
 newAmendment html =
   Amendment {
-    summary = fromMaybe "No summary found" (findSummary (paragraphs html)),
-    text    = paragraphs html
+    summary = fromMaybe "No summary found" (findSummary (paragraphs html))
   }
 
 
