@@ -43,7 +43,8 @@ newAmendment html =
 
 paragraphs ∷ String → [String]
 paragraphs html =
-  runLA (hread >>> css "p" //> getText) html
+  let allParagraphs = runLA (hread >>> css "p" //> getText) html
+  in filter isNotPdfMetadata allParagraphs
 
 
 findSummary ∷ [String] → Maybe String
@@ -56,3 +57,13 @@ findSummary text =
 isSummary ∷ String → Bool
 isSummary sentence =
   "Relating to" `isPrefixOf` sentence
+
+
+isNotPdfMetadata ∷ String → Bool
+isNotPdfMetadata text =
+  not (isPdfMetadata text)
+
+
+isPdfMetadata ∷ String → Bool
+isPdfMetadata text =
+  "<<\n" `isPrefixOf` text

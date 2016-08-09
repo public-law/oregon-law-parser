@@ -24,5 +24,4 @@ executable analyze
                        , HandsomeSoup
                        , hxt
                        , split
-                       , string-conversions
                        , text
