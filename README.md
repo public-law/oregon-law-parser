@@ -18,4 +18,4 @@ $ pdf2html 2016orLaw0001.pdf | analyze
 }
 ```
 
-See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs) for the actual Haskell code.
+See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs).
