@@ -29,15 +29,15 @@ main ∷ IO ()
 main = do
   html ← getContents
   html
-    |> newAmendment
+    |> makeAmendment
     |> encodePretty
     |> show
     |> read
     |> putStrLn
 
 
-newAmendment ∷ String → Amendment
-newAmendment html =
+makeAmendment ∷ String → Amendment
+makeAmendment html =
   Amendment {
     summary = html
                 |> paragraphs
