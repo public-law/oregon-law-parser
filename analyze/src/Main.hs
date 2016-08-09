@@ -17,11 +17,12 @@ import           Text.Regex.Posix
 import           Text.XML.HXT.Core
 
 
+type SectionNumber = String
 
 data Amendment =
   Amendment {
       summary   ∷ String,
-      citations ∷ [String]
+      citations ∷ [SectionNumber]
     } deriving (Show, Generic)
 
 instance ToJSON Amendment
@@ -66,10 +67,10 @@ findSummary text =
     _   → Nothing
 
 
-sectionNumbers ∷ String → [String]
+sectionNumbers ∷ String → [SectionNumber]
 sectionNumbers text =
   let pattern = "[0-9]{1,3}\\.[0-9]{3}" ∷ String
-  in getAllTextMatches $ text =~ pattern ∷ [String]
+  in getAllTextMatches $ text =~ pattern ∷ [SectionNumber]
 
 
 isSummary ∷ String → Bool
