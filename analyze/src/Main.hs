@@ -36,7 +36,7 @@ main = do
 newAmendment ∷ String → Amendment
 newAmendment html =
   Amendment {
-    summary = fromMaybe "No summary found" (findSummary (paragraphs html))
+    summary = fromMaybe "(Summary is not available)" $ findSummary $ paragraphs html
   }
 
 
