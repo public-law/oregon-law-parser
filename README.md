@@ -1,6 +1,6 @@
 # analyze-ors-amendment-haskell
 
-A command line app for transforming an Oregon Amendment in HTML form into JSON structured data:
+A command line app for extracting information from an Oregon Amendment in HTML, and outputting JSON:
 
 ```sh
 $ pdf2html 2016orLaw0001.pdf | analyze
@@ -17,6 +17,9 @@ $ pdf2html 2016orLaw0001.pdf | analyze
     ]
 }
 ```
+
+This decouples the data import process: instead of writing more Ruby code for my Rails app, this JSON is a go-between format. This way I can experiment with other languages.
+
 
 See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs).
 
