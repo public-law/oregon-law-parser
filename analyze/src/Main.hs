@@ -41,16 +41,10 @@ main = do
 
 makeAmendment ∷ String → Amendment
 makeAmendment html =
-  let lines = paragraphs html
+  let text = paragraphs html
   in Amendment {
-    summary = lines
-      |> findSummary
-      |> fromMaybe "(Summary is not available)",
-    citations = lines
-      |> (map sectionNumbers)
-      |> concat
-      |> nub
-      |> sort
+    summary   = text |> findSummary |> fromMaybe "(Summary is not available)",
+    citations = text |> allSectionNumbers
   }
 
 
@@ -65,6 +59,15 @@ findSummary text =
   case filter isSummary text of
     [x] → Just x
     _   → Nothing
+
+
+allSectionNumbers ∷ [String] → [SectionNumber]
+allSectionNumbers lines =
+  lines
+    |> (map sectionNumbers)
+    |> concat
+    |> nub
+    |> sort
 
 
 sectionNumbers ∷ String → [SectionNumber]
