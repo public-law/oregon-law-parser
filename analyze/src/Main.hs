@@ -49,6 +49,7 @@ makeAmendment html =
 
 paragraphs ∷ String → [String]
 paragraphs html =
+  -- TODO: Switch to TagSoup for the HTML parsing
   let allParagraphs = runLA (hread >>> css "p" //> getText) html
   in filter isNotPdfMetadata allParagraphs
 
