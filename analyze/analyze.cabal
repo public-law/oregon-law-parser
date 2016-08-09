@@ -23,5 +23,7 @@ executable analyze
                        , bytestring
                        , HandsomeSoup
                        , hxt
+                       , regex-compat
+                       , regex-posix
                        , split
                        , text
