@@ -30,7 +30,7 @@ See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/m
 
 ## pdf2html
 
-This is a shell alias which runs [Apache Tika](https://tika.apache.org/). This converts the PDF into very simple HTML; a list of paragraphs:
+A shell alias which runs [Apache Tika](https://tika.apache.org/). This converts the PDF into a simple list of HTML paragraphs:
 
 ```bash
 alias pdf2html="java -jar ~/lib/tika-app.jar --html"
