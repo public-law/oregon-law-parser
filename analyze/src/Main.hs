@@ -28,9 +28,13 @@ instance ToJSON Amendment
 main ∷ IO ()
 main = do
   html ← getContents
-  let amendment = newAmendment html
-  Data.ByteString.Lazy.putStr (encodePretty amendment)
-  Prelude.putStr "\n"
+  html
+    |> newAmendment
+    |> encodePretty
+    |> show
+    |> read
+    |> putStrLn
+
 
 
 newAmendment ∷ String → Amendment
@@ -66,3 +70,7 @@ isNotPdfMetadata text =
 isPdfMetadata ∷ String → Bool
 isPdfMetadata text =
   "<<\n" `isPrefixOf` text
+
+
+-- The Railway operator
+(|>) x f = f x
