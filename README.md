@@ -19,3 +19,11 @@ $ pdf2html 2016orLaw0001.pdf | analyze
 ```
 
 See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs).
+
+## pdf2html
+
+This is an alias which runs Apache Tika:
+
+```bash
+alias pdf2html="java -jar ~/lib/tika-app.jar --html"
+```
