@@ -4,8 +4,8 @@
 
 module Main where
 
-import           Data.Aeson
-import           Data.Aeson.Encode.Pretty
+import           Data.Aeson               (ToJSON)
+import           Data.Aeson.Encode.Pretty (encodePretty)
 import           Data.ByteString.Lazy     (putStr)
 import           Data.List                (isPrefixOf, nub, sort)
 import           Data.Maybe               (fromMaybe)
@@ -41,10 +41,10 @@ main = do
 
 makeAmendment ∷ String → Amendment
 makeAmendment html =
-  let text = paragraphs html
+  let phrases = paragraphs html
   in Amendment {
-    summary   = text |> findSummary |> fromMaybe "(Summary is not available)",
-    citations = text |> allSectionNumbers
+    summary   = phrases |> findSummary |> fromMaybe "(Summary is not available)",
+    citations = phrases |> allSectionNumbers
   }
 
 
@@ -62,8 +62,8 @@ findSummary text =
 
 
 allSectionNumbers ∷ [String] → [SectionNumber]
-allSectionNumbers lines =
-  lines
+allSectionNumbers phrases =
+  phrases
     |> (map sectionNumbers)
     |> concat
     |> nub
@@ -73,7 +73,7 @@ allSectionNumbers lines =
 sectionNumbers ∷ String → [SectionNumber]
 sectionNumbers text =
   let pattern = "[0-9]{1,3}\\.[0-9]{3}" ∷ String
-  in getAllTextMatches $ text =~ pattern ∷ [SectionNumber]
+  in getAllTextMatches $ text =~ pattern
 
 
 isSummary ∷ String → Bool
