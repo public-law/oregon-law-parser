@@ -68,7 +68,7 @@ findSummary text =
 
 sectionNumbers ∷ String → [String]
 sectionNumbers text =
-  let pattern = "[0-9][0-9][0-9]\\.[0-9][0-9][0-9]" ∷ String
+  let pattern = "[0-9]{1,3}\\.[0-9][0-9][0-9]" ∷ String
   in getAllTextMatches $ text =~ pattern ∷ [String]
 
 
