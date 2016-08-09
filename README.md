@@ -25,7 +25,7 @@ See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/m
 
 ## pdf2html
 
-This is an alias which runs [Apache Tika](https://tika.apache.org/):
+This is a shell alias which runs [Apache Tika](https://tika.apache.org/):
 
 ```bash
 alias pdf2html="java -jar ~/lib/tika-app.jar --html"
