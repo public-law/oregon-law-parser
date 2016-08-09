@@ -1,6 +1,11 @@
 # analyze-ors-amendment-haskell
 
-A command line app, `analyze`, which extracts info from an Oregon Amendment (in HTML), and outputs JSON:
+A command line app, `analyze`, which extracts info from an Oregon Amendment:
+
+
+![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
+
+...and outputs JSON:
 
 ```sh
 $ pdf2html 2016orLaw0001.pdf | analyze
@@ -25,7 +30,7 @@ See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/m
 
 ## pdf2html
 
-This is a shell alias which runs [Apache Tika](https://tika.apache.org/):
+This is a shell alias which runs [Apache Tika](https://tika.apache.org/). This converts the PDF into very simple HTML; a list of paragraphs:
 
 ```bash
 alias pdf2html="java -jar ~/lib/tika-app.jar --html"
