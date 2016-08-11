@@ -11,7 +11,7 @@ A command line app, `analyze`; part of a pipeline which extracts info from an Or
 $ pdf2html 2016orLaw0001.pdf | analyze
 
 {
-    "summary": "Relating to speed limits on highways..."
+    "summary": "Relating to speed limits on highways that traverse state lines; creating new provisions; amending ORS 811.111; and declaring an emergency."
     "citations": [
         "801.462",
         "810.180",
