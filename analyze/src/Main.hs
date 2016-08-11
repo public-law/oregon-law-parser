@@ -32,9 +32,7 @@ main = do
   html ← getContents
   html
     |> makeAmendment
-    |> encodePretty
-    |> show
-    |> read
+    |> toJson
     |> putStrLn
 
 
@@ -47,6 +45,10 @@ makeAmendment html =
   }
 
 
+toJson ∷ Amendment → String
+toJson = read ∘ show ∘ encodePretty
+
+
 paragraphs ∷ String → [String]
 paragraphs html =
   -- TODO: Switch to TagSoup for the HTML parsing
@@ -57,23 +59,22 @@ paragraphs html =
 findSummary ∷ [String] → Maybe String
 findSummary phrases =
   case filter isSummary phrases of
-    [x] → Just x
+    [x] → Just (cleanUp x)
     _   → Nothing
 
 
 allSectionNumbers ∷ [String] → [SectionNumber]
 allSectionNumbers phrases =
   phrases
-    |> (map sectionNumbers)
+    |> map sectionNumbers
     |> concat
     |> nub
     |> sort
 
 
-sectionNumbers ∷ String → [SectionNumber]
+sectionNumbers ∷ String → [String]
 sectionNumbers text =
-  let pattern = "[0-9]{1,3}\\.[0-9]{3}" ∷ String
-  in getAllTextMatches $ text =~ pattern
+  getAllTextMatches $ text =~ ("[0-9]{1,3}\\.[0-9]{3}" ∷ String)
 
 
 isSummary ∷ String → Bool
@@ -84,6 +85,15 @@ isSummary sentence =
 isNotPdfMetadata ∷ String → Bool
 isNotPdfMetadata text =
   not ("<<\n" `isPrefixOf` text)
+
+
+cleanUp ∷ String → String
+cleanUp = tr '\n' ' '
+
+
+tr ∷ Char → Char → String → String
+tr old new =
+  map (\c → if c == old then new; else c)
 
 
 -- The Railway operator
