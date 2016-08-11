@@ -4,6 +4,7 @@
 
 module Main where
 
+import           Control.Arrow.Unicode
 import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import           Data.List                (isPrefixOf, nub, sort)
@@ -47,7 +48,7 @@ makeAmendment html =
 
 
 toJson ∷ Amendment → String
-toJson = read ∘ show ∘ encodePretty
+toJson = encodePretty ⋙ show ⋙ read
 
 
 paragraphs ∷ String → [String]
