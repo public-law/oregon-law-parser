@@ -8,6 +8,7 @@ import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import           Data.List                (isPrefixOf, nub, sort)
 import           Data.Maybe               (fromMaybe)
+import qualified Data.Text                as T
 import           GHC.Generics
 import           Prelude.Unicode
 import           System.Environment       (getArgs)
@@ -88,7 +89,8 @@ isNotPdfMetadata text =
 
 
 cleanUp ∷ String → String
-cleanUp = tr '\n' ' '
+cleanUp s =
+  T.unpack $ T.strip $ T.pack $ tr '\n' ' ' s
 
 
 tr ∷ Char → Char → String → String
