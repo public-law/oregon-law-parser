@@ -61,8 +61,8 @@ paragraphs html =
 findSummary ∷ [String] → Maybe String
 findSummary phrases =
   case filter isSummary phrases of
-    [x] → Just (cleanUp x)
-    _   → Nothing
+    [aSummary] → Just (cleanUp aSummary)
+    _          → Nothing
 
 
 allSectionNumbers ∷ [String] → [SectionNumber]
