@@ -47,10 +47,10 @@ main = do
 
 makeAmendment ∷ String → Amendment
 makeAmendment html =
-  let phrases = paragraphs html
+  let phrases = html |> paragraphs
   in Amendment {
     summary   = phrases |> findSummary,
-    citations = phrases |> allSectionNumbers
+    citations = phrases |> findSectionNumbers
   }
 
 
@@ -68,8 +68,8 @@ findSummary phrases =
     _          → "(Summary is not available)"
 
 
-allSectionNumbers ∷ [String] → [SectionNumber]
-allSectionNumbers phrases =
+findSectionNumbers ∷ [String] → [SectionNumber]
+findSectionNumbers phrases =
   phrases
     |> map sectionNumbers
     |> concat
