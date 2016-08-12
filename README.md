@@ -25,14 +25,6 @@ $ analyze 2016orLaw0001.pdf
 
 See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs).
 
-## pdf2html
-
-A shell alias which runs [Apache Tika](https://tika.apache.org/). This converts the PDF into a simple list of HTML paragraphs:
-
-```bash
-alias pdf2html="java -jar ~/lib/tika-app.jar --html"
-```
-
 
 # An intermediate step to improve flexibility
 
