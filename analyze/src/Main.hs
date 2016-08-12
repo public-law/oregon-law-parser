@@ -7,6 +7,7 @@ module Main where
 import           Control.Arrow.Unicode
 import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
+import qualified Data.ByteString.Lazy     as ByteString
 import           Data.List                (isPrefixOf, nub, sort)
 import           Data.Maybe               (fromMaybe)
 import qualified Data.Text                as Text
@@ -29,13 +30,12 @@ data Amendment =
 instance ToJSON Amendment
 
 
-main ∷ IO ()
 main = do
   html ← getContents
   html
     |> makeAmendment
-    |> toJson
-    |> putStrLn
+    |> encodePretty
+    |> ByteString.putStr
 
 
 makeAmendment ∷ String → Amendment
@@ -45,10 +45,6 @@ makeAmendment html =
     summary   = phrases |> findSummary |> fromMaybe "(Summary is not available)",
     citations = phrases |> allSectionNumbers
   }
-
-
-toJson ∷ Amendment → String
-toJson = encodePretty ⋙ show ⋙ read
 
 
 paragraphs ∷ String → [String]
