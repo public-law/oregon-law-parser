@@ -29,7 +29,6 @@ data Amendment =
 instance ToJSON Amendment
 
 
-main :: IO ()
 main = do
   args ← getArgs
   let pdfFilename = head args
