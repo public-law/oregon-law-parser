@@ -14,6 +14,7 @@ import qualified Data.Text                as Text
 import           GHC.Generics
 import           Prelude.Unicode
 import           System.Environment       (getArgs)
+import           System.Process           (readProcessWithExitCode)
 import           Text.HandsomeSoup
 import           Text.Regex.Posix
 import           Text.XML.HXT.Core
@@ -31,7 +32,14 @@ instance ToJSON Amendment
 
 
 main = do
-  html ← getContents
+  args ← getArgs
+  let pdfFilename = head args
+
+  (errCode, stdout', stderr') <- readProcessWithExitCode "java" ["-jar", "/Users/robb/lib/tika-app.jar", "--html", pdfFilename] ""
+  -- putStrLn $ "stderr: " ++ stderr'
+  -- putStrLn $ "errCode: " ++ show errCode
+
+  let html = stdout'
   html
     |> makeAmendment
     |> encodePretty
