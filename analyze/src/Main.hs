@@ -35,12 +35,11 @@ main = do
   args ← getArgs
   let pdfFilename = head args
 
-  (errCode, stdout', stderr') <- readProcessWithExitCode "java" ["-jar", "/Users/robb/lib/tika-app.jar", "--html", pdfFilename] ""
+  (errCode, htmlOutput, stderr') <- readProcessWithExitCode "java" ["-jar", "/Users/robb/lib/tika-app.jar", "--html", pdfFilename] ""
   -- putStrLn $ "stderr: " ++ stderr'
   -- putStrLn $ "errCode: " ++ show errCode
 
-  let html = stdout'
-  html
+  htmlOutput
     |> makeAmendment
     |> encodePretty
     |> ByteString.putStr
