@@ -1,11 +1,11 @@
 # analyze-ors-amendment-haskell
 
-A command line app, `analyze`; part of a pipeline which extracts info from an Oregon Amendment:
+A command line app, `analyze`, which converts this:
 
 
 ![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
 
-...and outputs structured JSON:
+...to this:
 
 ```sh
 $ pdf2html 2016orLaw0001.pdf | analyze
