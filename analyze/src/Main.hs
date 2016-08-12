@@ -1,13 +1,12 @@
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE UnicodeSyntax     #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Main where
 
 import           Control.Arrow.Unicode
 import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
-import qualified Data.ByteString.Lazy     as ByteString
+import qualified Data.ByteString.Lazy     as B
 import           Data.List                (isPrefixOf, nub, sort)
 import qualified Data.Text                as Text
 import           GHC.Generics
@@ -35,14 +34,17 @@ main = do
   args ← getArgs
   let pdfFilename = head args
 
-  (errCode, htmlOutput, stderr') <- readProcessWithExitCode "java" ["-jar", "/Users/robb/lib/tika-app.jar", "--html", pdfFilename] ""
+  (errCode, rawHTML, stderr') <- readProcessWithExitCode "java" ["-jar", "/Users/robb/lib/tika-app.jar", "--html", pdfFilename] ""
   -- putStrLn $ "stderr: " ++ stderr'
   -- putStrLn $ "errCode: " ++ show errCode
 
-  htmlOutput
-    |> makeAmendment
-    |> encodePretty
-    |> ByteString.putStr
+  rawHTML
+    |> htmlToJson
+    |> B.putStr
+
+
+htmlToJson ∷ String → B.ByteString
+htmlToJson = makeAmendment ⋙ encodePretty
 
 
 makeAmendment ∷ String → Amendment
@@ -78,8 +80,9 @@ findSectionNumbers phrases =
 
 
 sectionNumbers ∷ String → [String]
-sectionNumbers text =
-  getAllTextMatches $ text =~ ("[0-9]{1,3}\\.[0-9]{3}" ∷ String)
+sectionNumbers phrase =
+  -- Match ORS section numbers like 40.230 and 743A.144.
+  getAllTextMatches (phrase =~ "[0-9]{1,3}[A-C]?\\.[0-9]{3}")
 
 
 isSummary ∷ String → Bool
