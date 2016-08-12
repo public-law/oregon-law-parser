@@ -10,6 +10,7 @@ import qualified Data.ByteString.Lazy     as B
 import           Data.List                (isPrefixOf, nub, sort)
 import qualified Data.Text                as Text
 import           GHC.Generics
+import           GHC.IO.Exception
 import           Prelude.Unicode
 import           System.Environment       (getArgs)
 import           System.Process           (readProcessWithExitCode)
@@ -29,17 +30,24 @@ data Amendment =
 instance ToJSON Amendment
 
 
+main ∷ IO ()
 main = do
   args ← getArgs
   let pdfFilename = head args
 
-  (errCode, rawHTML, stderr') <- readProcessWithExitCode "java" ["-jar", "/Users/robb/lib/tika-app.jar", "--html", pdfFilename] ""
+  (errCode, rawHTML, stderr') ← runTika pdfFilename
   -- putStrLn $ "stderr: " ++ stderr'
   -- putStrLn $ "errCode: " ++ show errCode
 
   rawHTML
     |> htmlToJson
     |> B.putStr
+
+
+runTika ∷ String → IO (GHC.IO.Exception.ExitCode, String, String)
+runTika pdfFilename =
+  readProcessWithExitCode "java" ["-jar", "/Users/robb/lib/tika-app.jar", "--html", pdfFilename] ""
+
 
 
 htmlToJson ∷ String → B.ByteString
