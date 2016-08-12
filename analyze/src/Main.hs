@@ -4,6 +4,7 @@
 module Main where
 
 import           Control.Arrow.Unicode
+import           Control.Monad
 import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as B
@@ -16,7 +17,7 @@ import           System.Environment       (getArgs)
 import           System.Process           (readProcessWithExitCode)
 import           Text.HandsomeSoup
 import           Text.Regex.TDFA
-import           Text.XML.HXT.Core
+import           Text.XML.HXT.Core        (getText, hread, runLA, (//>), (>>>))
 
 
 type SectionNumber = String
@@ -33,21 +34,22 @@ instance ToJSON Amendment
 main ∷ IO ()
 main = do
   args ← getArgs
-  let pdfFilename = head args
+  when (length args /= 1) $
+    fail "Usage: analyze [filename]"
 
+  let pdfFilename = head args
   (errCode, rawHTML, stderr') ← runTika pdfFilename
-  -- putStrLn $ "stderr: " ++ stderr'
-  -- putStrLn $ "errCode: " ++ show errCode
+  when (errCode /= ExitSuccess) $
+    fail $ show errCode ++ "\n" ++ stderr'
 
   rawHTML
     |> htmlToJson
     |> B.putStr
 
 
-runTika ∷ String → IO (GHC.IO.Exception.ExitCode, String, String)
+runTika ∷ String → IO (ExitCode, String, String)
 runTika pdfFilename =
   readProcessWithExitCode "java" ["-jar", "/Users/robb/lib/tika-app.jar", "--html", pdfFilename] ""
-
 
 
 htmlToJson ∷ String → B.ByteString
