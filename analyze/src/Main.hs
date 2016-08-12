@@ -9,7 +9,6 @@ import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as ByteString
 import           Data.List                (isPrefixOf, nub, sort)
-import           Data.Maybe               (fromMaybe)
 import qualified Data.Text                as Text
 import           GHC.Generics
 import           Prelude.Unicode
@@ -31,6 +30,7 @@ data Amendment =
 instance ToJSON Amendment
 
 
+main :: IO ()
 main = do
   args ← getArgs
   let pdfFilename = head args
@@ -49,7 +49,7 @@ makeAmendment ∷ String → Amendment
 makeAmendment html =
   let phrases = paragraphs html
   in Amendment {
-    summary   = phrases |> findSummary |> fromMaybe "(Summary is not available)",
+    summary   = phrases |> findSummary,
     citations = phrases |> allSectionNumbers
   }
 
@@ -61,11 +61,11 @@ paragraphs html =
   in filter isNotPdfMetadata allParagraphs
 
 
-findSummary ∷ [String] → Maybe String
+findSummary ∷ [String] → String
 findSummary phrases =
   case filter isSummary phrases of
-    [aSummary] → Just (cleanUp aSummary)
-    _          → Nothing
+    [aSummary] → cleanUp aSummary
+    _          → "(Summary is not available)"
 
 
 allSectionNumbers ∷ [String] → [SectionNumber]
