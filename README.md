@@ -5,7 +5,7 @@ A command line app, `analyze`, which converts this:
 
 ![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
 
-...to this:
+**to this:**
 
 ```sh
 $ analyze 2016orLaw0001.pdf
