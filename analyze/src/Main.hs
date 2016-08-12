@@ -14,7 +14,7 @@ import           Prelude.Unicode
 import           System.Environment       (getArgs)
 import           System.Process           (readProcessWithExitCode)
 import           Text.HandsomeSoup
-import           Text.Regex.Posix
+import           Text.Regex.TDFA
 import           Text.XML.HXT.Core
 
 

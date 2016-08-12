@@ -24,6 +24,5 @@ executable analyze
                        , HandsomeSoup
                        , hxt
                        , process
-                       , regex-compat
-                       , regex-posix
+                       , regex-tdfa
                        , text
