@@ -23,8 +23,14 @@ import           Text.XML.HXT.Core        (getText, hread, runLA, (//>), (>>>))
 
 type SectionNumber = String
 
-data Chamber = House | Senate
+data BillType = HB | SB
   deriving (Show, Generic)
+
+data Bill =
+  Bill {
+    billType   ∷ BillType,
+    billNumber ∷ Integer
+  } deriving (Show, Generic)
 
 data Amendment =
   Amendment {
@@ -32,14 +38,14 @@ data Amendment =
       citations     ∷ [SectionNumber],
       year          ∷ Integer,
       chapter       ∷ Integer,
-      chamber       ∷ Chamber,
-      bill          ∷ Integer,
+      bill          ∷ Bill,
       effectiveDate ∷ Day
     } deriving (Show, Generic)
 
 
 instance ToJSON Amendment
-instance ToJSON Chamber
+instance ToJSON BillType
+instance ToJSON Bill
 
 
 main ∷ IO ()
@@ -71,12 +77,11 @@ makeAmendment ∷ String → Amendment
 makeAmendment html =
   let phrases = html |> paragraphs
   in Amendment {
-    summary   = phrases |> findSummary,
-    citations = phrases |> findSectionNumbers,
-    chamber   = House,
-    bill      = 4014,
-    year      = 2016,
-    chapter   = 24,
+    summary    = phrases |> findSummary,
+    citations  = phrases |> findSectionNumbers,
+    bill       = Bill { billType = HB, billNumber = 1100 },
+    year       = 2016,
+    chapter    = 24,
     effectiveDate = fromGregorian 2016 5 5
   }
 
