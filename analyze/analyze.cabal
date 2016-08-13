@@ -22,9 +22,11 @@ executable analyze
                        , base-unicode-symbols
                        , bytestring
                        , HandsomeSoup
+                       , hspec
                        , hxt
                        , MissingH
                        , process
+                       , QuickCheck
                        , regex-tdfa
                        , time
                        , text

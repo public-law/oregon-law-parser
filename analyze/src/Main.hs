@@ -51,7 +51,7 @@ main = do
   let pdfFilename = head args
   (errCode, rawHTML, stderr') ← runTika pdfFilename
   when (errCode /= ExitSuccess) $
-    fail (show errCode ++ "\n" ++ stderr')
+    fail stderr'
 
   rawHTML
     |> htmlToJson
@@ -98,7 +98,7 @@ findSummary phrases =
 findSectionNumbers ∷ [String] → [SectionNumber]
 findSectionNumbers phrases =
   phrases
-    |> map sectionNumbers
+    |> fmap sectionNumbers
     |> concat
     |> nub
     |> sort
