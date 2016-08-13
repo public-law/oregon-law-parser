@@ -26,4 +26,5 @@ executable analyze
                        , MissingH
                        , process
                        , regex-tdfa
+                       , time
                        , text

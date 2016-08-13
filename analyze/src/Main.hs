@@ -10,7 +10,7 @@ import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as B
 import           Data.List                (isPrefixOf, nub, sort)
 import           Data.String.Utils        (replace, strip)
-import qualified Data.Text                as Text
+import           Data.Time                (Day, fromGregorian)
 import           GHC.Generics
 import           GHC.IO.Exception
 import           Prelude.Unicode
@@ -23,13 +23,23 @@ import           Text.XML.HXT.Core        (getText, hread, runLA, (//>), (>>>))
 
 type SectionNumber = String
 
+data Chamber = House | Senate
+  deriving (Show, Generic)
+
 data Amendment =
   Amendment {
-      summary   ∷ String,
-      citations ∷ [SectionNumber]
+      summary       ∷ String,
+      citations     ∷ [SectionNumber],
+      year          ∷ Integer,
+      chapter       ∷ Integer,
+      chamber       ∷ Chamber,
+      bill          ∷ Integer,
+      effectiveDate ∷ Day
     } deriving (Show, Generic)
 
+
 instance ToJSON Amendment
+instance ToJSON Chamber
 
 
 main ∷ IO ()
@@ -62,7 +72,12 @@ makeAmendment html =
   let phrases = html |> paragraphs
   in Amendment {
     summary   = phrases |> findSummary,
-    citations = phrases |> findSectionNumbers
+    citations = phrases |> findSectionNumbers,
+    chamber   = House,
+    bill      = 4014,
+    year      = 2016,
+    chapter   = 24,
+    effectiveDate = fromGregorian 2016 5 5
   }
 
 
@@ -70,7 +85,7 @@ paragraphs ∷ String → [String]
 paragraphs html =
   -- TODO: Switch to TagSoup for the HTML parsing
   let allParagraphs = runLA (hread >>> css "p" //> getText) html
-  in filter isNotPdfMetadata allParagraphs
+  in filter (not ∘ isPdfMetadata) allParagraphs
 
 
 findSummary ∷ [String] → String
@@ -100,13 +115,13 @@ isSummary sentence =
   "Relating to" `isPrefixOf` sentence
 
 
-isNotPdfMetadata ∷ String → Bool
-isNotPdfMetadata text =
-  not ("<<\n" `isPrefixOf` text)
+isPdfMetadata ∷ String → Bool
+isPdfMetadata text =
+  "<<\n" `isPrefixOf` text
 
 
 cleanUp ∷ String → String
-cleanUp = fixHyphenation ∘ fixWhitespace ∘ strip
+cleanUp = strip ⋙ fixWhitespace ⋙ fixHyphenation
 
 
 fixWhitespace  = replace "\n" " "
