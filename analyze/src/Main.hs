@@ -105,7 +105,7 @@ isNotPdfMetadata text =
 
 
 cleanUp ∷ String → String
-cleanUp = tr '\n' ' ' ⋙ strip
+cleanUp = strip ∘ tr '\n' ' '
 
 
 --
@@ -118,7 +118,7 @@ tr old new =
 
 
 strip ∷ String → String
-strip = Text.pack ⋙ Text.strip ⋙ Text.unpack
+strip = Text.unpack ∘ Text.strip ∘ Text.pack
 
 
 -- The Railway operator
