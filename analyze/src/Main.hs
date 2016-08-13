@@ -9,11 +9,11 @@ import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as B
 import           Data.List                (isPrefixOf, nub, sort)
-import           Data.String.Utils        (replace, strip)
 import           Data.Time                (Day, fromGregorian)
 import           GHC.Generics
 import           GHC.IO.Exception
 import           Prelude.Unicode
+import           StringOps
 import           System.Environment       (getArgs)
 import           System.Process           (readProcessWithExitCode)
 import           Text.HandsomeSoup
@@ -120,15 +120,8 @@ isPdfMetadata text =
   "<<\n" `isPrefixOf` text
 
 
-cleanUp ∷ String → String
-cleanUp = strip ⋙ fixWhitespace ⋙ fixHyphenation
-
-
-fixWhitespace  = replace "\n" " "
-fixHyphenation = replace "- " ""
-
-
 --
 -- The Railway operator
 --
+(|>) ∷ t1 -> (t1 -> t2) -> t2
 (|>) x f = f x
