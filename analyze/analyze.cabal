@@ -23,6 +23,7 @@ executable analyze
                        , bytestring
                        , HandsomeSoup
                        , hxt
+                       , MissingH
                        , process
                        , regex-tdfa
                        , text

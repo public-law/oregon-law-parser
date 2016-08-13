@@ -9,6 +9,7 @@ import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as B
 import           Data.List                (isPrefixOf, nub, sort)
+import           Data.String.Utils        (replace)
 import qualified Data.Text                as Text
 import           GHC.Generics
 import           GHC.IO.Exception
@@ -105,8 +106,10 @@ isNotPdfMetadata text =
 
 
 cleanUp ∷ String → String
-cleanUp = strip ∘ tr '\n' ' '
+cleanUp = fixHyphenation ∘ strip ∘ tr '\n' ' '
 
+
+fixHyphenation = replace "- " ""
 
 --
 -- String functions
