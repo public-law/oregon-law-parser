@@ -9,7 +9,7 @@ import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as B
 import           Data.List                (isPrefixOf, nub, sort)
-import           Data.String.Utils        (replace)
+import           Data.String.Utils        (replace, strip)
 import qualified Data.Text                as Text
 import           GHC.Generics
 import           GHC.IO.Exception
@@ -106,23 +106,14 @@ isNotPdfMetadata text =
 
 
 cleanUp ∷ String → String
-cleanUp = fixHyphenation ∘ strip ∘ tr '\n' ' '
+cleanUp = fixHyphenation ∘ fixWhitespace ∘ strip
 
 
+fixWhitespace  = replace "\n" " "
 fixHyphenation = replace "- " ""
 
+
 --
--- String functions
---
-
-tr ∷ Char → Char → String → String
-tr old new =
-  map (\c → if c == old then new; else c)
-
-
-strip ∷ String → String
-strip = Text.unpack ∘ Text.strip ∘ Text.pack
-
-
 -- The Railway operator
+--
 (|>) x f = f x
