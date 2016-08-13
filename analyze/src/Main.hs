@@ -40,7 +40,7 @@ main = do
   let pdfFilename = head args
   (errCode, rawHTML, stderr') ← runTika pdfFilename
   when (errCode /= ExitSuccess) $
-    fail $ show errCode ++ "\n" ++ stderr'
+    fail (show errCode ++ "\n" ++ stderr')
 
   rawHTML
     |> htmlToJson
