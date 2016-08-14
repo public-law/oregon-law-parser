@@ -1,4 +1,3 @@
-{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Main where
@@ -6,12 +5,10 @@ module Main where
 import           Amendment
 import           Control.Arrow.Unicode
 import           Control.Monad
-import           Data.Aeson               (ToJSON)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as B
 import           Data.List                (isPrefixOf, nub, sort)
-import           Data.Time                (Day, fromGregorian)
-import           GHC.Generics
+import           Data.Time                (fromGregorian)
 import           GHC.IO.Exception
 import           Prelude.Unicode
 import           StringOps
@@ -21,32 +18,6 @@ import           Text.HandsomeSoup
 import           Text.Regex.TDFA
 import           Text.XML.HXT.Core        (getText, hread, runLA, (//>), (>>>))
 
-
-type SectionNumber = String
-
-data BillType = HB | SB
-  deriving (Show, Generic)
-
-data Bill =
-  Bill {
-    billType   ∷ BillType,
-    billNumber ∷ Integer
-  } deriving (Show, Generic)
-
-data Amendment =
-  Amendment {
-      summary       ∷ String,
-      citations     ∷ [SectionNumber],
-      year          ∷ Integer,
-      chapter       ∷ Integer,
-      bill          ∷ Bill,
-      effectiveDate ∷ Day
-    } deriving (Show, Generic)
-
-
-instance ToJSON Amendment
-instance ToJSON BillType
-instance ToJSON Bill
 
 
 main ∷ IO ()
@@ -61,7 +32,7 @@ main = do
     fail stderr'
 
   rawHTML
-    |> htmlToJson
+    |> tikaOutputToJson
     |> B.putStr
 
 
@@ -70,8 +41,8 @@ runTika pdfFilename =
   readProcessWithExitCode "java" ["-jar", "/Users/robb/lib/tika-app.jar", "--html", pdfFilename] ""
 
 
-htmlToJson ∷ String → B.ByteString
-htmlToJson = makeAmendment ⋙ encodePretty
+tikaOutputToJson ∷ String → B.ByteString
+tikaOutputToJson = makeAmendment ⋙ encodePretty
 
 
 makeAmendment ∷ String → Amendment
@@ -80,7 +51,7 @@ makeAmendment html =
   in Amendment {
     summary    = phrases |> findSummary,
     citations  = phrases |> findSectionNumbers,
-    bill       = Bill { billType = HB, billNumber = 1100 },
+    bill       = makeBill "HB 1234",
     year       = 2016,
     chapter    = 24,
     effectiveDate = fromGregorian 2016 5 5
