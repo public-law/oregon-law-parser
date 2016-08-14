@@ -3,6 +3,7 @@
 
 module Main where
 
+import           Amendment
 import           Control.Arrow.Unicode
 import           Control.Monad
 import           Data.Aeson               (ToJSON)
@@ -113,11 +114,6 @@ sectionNumbers ∷ String → [String]
 sectionNumbers phrase =
   -- Match ORS section numbers like 40.230 and 743A.144.
   getAllTextMatches (phrase =~ "[0-9]{1,3}[A-C]?\\.[0-9]{3}")
-
-
-isSummary ∷ String → Bool
-isSummary sentence =
-  "Relating to" `isPrefixOf` sentence
 
 
 isPdfMetadata ∷ String → Bool

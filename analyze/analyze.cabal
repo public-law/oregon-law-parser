@@ -16,7 +16,7 @@ executable analyze
   ghc-options:         -Wall
   hs-source-dirs:      src
   main-is:             Main.hs
-  other-modules:       StringOps
+  other-modules:       StringOps, Amendment
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5
                        , aeson
@@ -37,7 +37,7 @@ test-suite tests
   ghc-options:         -Wall
   hs-source-dirs:      test, src
   main-is:             Spec.hs
-  other-modules:       StringOps, StringOpsSpec
+  other-modules:       Amendment, AmendmentSpec, StringOps, StringOpsSpec
   type:                exitcode-stdio-1.0
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5
