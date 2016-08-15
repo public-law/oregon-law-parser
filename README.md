@@ -12,6 +12,12 @@ $ analyze 2016orLaw0001.pdf
 
 {
     "summary": "Relating to speed limits on highways that traverse state lines; creating new provisions; amending ORS 811.111; and declaring an emergency."
+    "bill": {
+        "billNumber": 4047,
+        "billType": "HB"
+    },
+    "effectiveDate": "2016-05-05",
+    "year": 2016,
     "citations": [
         "801.462",
         "810.180",
