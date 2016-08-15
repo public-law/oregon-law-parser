@@ -3,10 +3,11 @@
 
 module Amendment where
 
-import           Data.Aeson        (ToJSON)
-import           Data.List         (isPrefixOf)
-import           Data.String.Utils (splitWs)
-import           Data.Time         (Day)
+import           Control.Arrow.Unicode
+import           Data.Aeson            (ToJSON)
+import           Data.List             (isPrefixOf)
+import           Data.String.Utils     (splitWs)
+import           Data.Time             (Day)
 import           GHC.Generics
 import           Text.Regex.TDFA
 
@@ -27,7 +28,6 @@ data Amendment =
       summary       ∷ String,
       citations     ∷ [SectionNumber],
       year          ∷ Integer,
-      chapter       ∷ Integer,
       bill          ∷ Bill,
       effectiveDate ∷ Day
     } deriving (Show, Generic)
@@ -51,20 +51,28 @@ makeBill citation =
 
 findCitation ∷ String → String
 findCitation input =
-  input =~ "(HB|SB) [0-9]{4}"
-    |> getAllTextMatches
-    |> head
+  getFirstMatch (input =~ "(HB|SB) [0-9]{4}")
 
 
 findYear ∷ String → Integer
 findYear input =
   input =~ "OREGON LAWS [0-9]{4}"
-    |> getAllTextMatches
-    |> head
-    |> splitWs
+    |> getFirstMatch
+    |> split -- I don't know how to capture a group yet
     |> last
-    |> read
+    |> convert
 
+
+
+getFirstMatch = getAllTextMatches ⋙ first
+
+
+--
+-- More-conventional function names
+--
+first = head
+split = splitWs
+convert = read
 
 --
 -- The Railway operator

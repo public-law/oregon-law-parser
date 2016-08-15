@@ -53,7 +53,6 @@ makeAmendment html =
     citations  = phrases |> findSectionNumbers,
     bill       = html |> findCitation |> makeBill,
     year       = html |> findYear,
-    chapter    = 24,
     effectiveDate = fromGregorian 2016 5 5
   }
 
@@ -75,9 +74,9 @@ findSummary phrases =
 findSectionNumbers ∷ [String] → [SectionNumber]
 findSectionNumbers phrases =
   phrases
-    |> fmap sectionNumbers
-    |> concat
-    |> nub
+    |> map sectionNumbers
+    |> flatten
+    |> unique
     |> sort
 
 
@@ -90,3 +89,7 @@ sectionNumbers phrase =
 isPdfMetadata ∷ String → Bool
 isPdfMetadata text =
   "<<\n" `isPrefixOf` text
+
+
+flatten = concat
+unique = nub
