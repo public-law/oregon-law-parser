@@ -25,10 +25,11 @@ spec = do
 
   describe "findCitation" $ do
     it "can find it in an HB title" $ do
-      findCitation "AN ACT HB 4047" `shouldBe` Just "HB 4047"
+      findCitation "AN ACT HB 4047" `shouldBe` "HB 4047"
 
     it "can find it in an SB title" $ do
-      findCitation "AN ACT SB 1234" `shouldBe` Just "SB 1234"
+      findCitation "AN ACT SB 1234" `shouldBe` "SB 1234"
 
-    it "fails gracefully when not found" $ do
-      findCitation "Eff you!" `shouldBe` Nothing
+  describe "findYear" $ do
+    it "returns just the year" $ do
+      findYear "OREGON LAWS 2016" `shouldBe` 2016

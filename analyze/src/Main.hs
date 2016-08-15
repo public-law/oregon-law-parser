@@ -51,8 +51,8 @@ makeAmendment html =
   in Amendment {
     summary    = phrases |> findSummary,
     citations  = phrases |> findSectionNumbers,
-    bill       = makeBill "HB 1234",
-    year       = 2016,
+    bill       = html |> findCitation |> makeBill,
+    year       = html |> findYear,
     chapter    = 24,
     effectiveDate = fromGregorian 2016 5 5
   }

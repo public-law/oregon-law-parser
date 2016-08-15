@@ -8,6 +8,7 @@ import           Data.List         (isPrefixOf)
 import           Data.String.Utils (splitWs)
 import           Data.Time         (Day)
 import           GHC.Generics
+import           Prelude.Unicode
 import           Text.Regex.TDFA
 
 
@@ -49,10 +50,12 @@ makeBill citation =
   in  Bill { billType = read chamber, billNumber = read number }
 
 
-findCitation ∷ String → Maybe String
+findCitation ∷ String → String
 findCitation input =
-  let results = getAllTextMatches (input =~ "(HB|SB) [0-9]{4}")
-  in if null results then
-    Nothing
-  else
-    Just (head results)
+  head (getAllTextMatches (input =~ "(HB|SB) [0-9]{4}"))
+
+
+findYear ∷ String → Integer
+findYear input =
+  let matchResult = head (getAllTextMatches (input =~ "OREGON LAWS [0-9]{4}")) :: String
+  in  read ∘ last ∘ splitWs $ matchResult
