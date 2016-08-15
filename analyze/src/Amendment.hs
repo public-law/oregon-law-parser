@@ -44,6 +44,5 @@ isSummary sentence =
 
 makeBill ∷ String -> Bill
 makeBill citation =
-  let number = (read . head . tail . splitWs $ citation ) :: Integer
-      chamber = head . splitWs $ citation
-  in  Bill { billType = read chamber, billNumber = number }
+  let [chamber, number] = splitWs citation
+  in  Bill { billType = read chamber, billNumber = read number }
