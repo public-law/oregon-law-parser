@@ -1,11 +1,7 @@
 # analyze-ors-amendment-haskell
 
-A command line app, `analyze`, which converts this:
+A command line app, `analyze`, which extracts this information:
 
-
-![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
-
-**to this:**
 
 ```sh
 $ analyze 2016orLaw0001.pdf
@@ -28,6 +24,11 @@ $ analyze 2016orLaw0001.pdf
     ]
 }
 ```
+
+
+from this:
+
+![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
 
 See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs).
 
