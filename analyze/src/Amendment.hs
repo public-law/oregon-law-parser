@@ -8,7 +8,6 @@ import           Data.List         (isPrefixOf)
 import           Data.String.Utils (splitWs)
 import           Data.Time         (Day)
 import           GHC.Generics
-import           Prelude.Unicode
 import           Text.Regex.TDFA
 
 
@@ -52,10 +51,23 @@ makeBill citation =
 
 findCitation ∷ String → String
 findCitation input =
-  head (getAllTextMatches (input =~ "(HB|SB) [0-9]{4}"))
+  input =~ "(HB|SB) [0-9]{4}"
+    |> getAllTextMatches
+    |> head
 
 
 findYear ∷ String → Integer
 findYear input =
-  let matchResult = head (getAllTextMatches (input =~ "OREGON LAWS [0-9]{4}")) :: String
-  in  read ∘ last ∘ splitWs $ matchResult
+  input =~ "OREGON LAWS [0-9]{4}"
+    |> getAllTextMatches
+    |> head
+    |> splitWs
+    |> last
+    |> read
+
+
+--
+-- The Railway operator
+--
+(|>) ∷ t1 -> (t1 -> t2) -> t2
+(|>) x f = f x

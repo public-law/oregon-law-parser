@@ -90,10 +90,3 @@ sectionNumbers phrase =
 isPdfMetadata ∷ String → Bool
 isPdfMetadata text =
   "<<\n" `isPrefixOf` text
-
-
---
--- The Railway operator
---
-(|>) ∷ t1 -> (t1 -> t2) -> t2
-(|>) x f = f x
