@@ -1,7 +1,9 @@
 module AmendmentSpec where
 
 import           Amendment
+import           Data.Time  (fromGregorian)
 import           Test.Hspec
+
 
 
 main :: IO ()
@@ -33,3 +35,8 @@ spec = do
   describe "findYear" $ do
     it "returns just the year" $ do
       findYear "OREGON LAWS 2016" `shouldBe` 2016
+
+  describe "findEffectiveDate" $ do
+    it "picks out the right one" $ do
+      let ps = ["Nope.", "Approved by the Governor March 3, 2016 Filed in the office of Secretary of State March 3, 2016 Effective date January 17, 2017"]
+      (findEffectiveDate ps) `shouldBe` (fromGregorian 2017 1 17)

@@ -13,7 +13,7 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 executable analyze
-  ghc-options:         -Wall
+  ghc-options:         
   hs-source-dirs:      src
   main-is:             Main.hs
   other-modules:       StringOps, Amendment
