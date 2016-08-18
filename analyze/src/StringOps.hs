@@ -34,4 +34,4 @@ getFirstMatch = getAllTextMatches ⋙ first
 --
 first = head
 split = splitWs
-join = intercalate " "
+join = unwords
