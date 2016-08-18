@@ -29,13 +29,15 @@ main = do
 
 tikaOutputToJson ∷ String → B.ByteString
 tikaOutputToJson html =
-  html |> makeAmendment |> encodePretty
+  html
+    |> paragraphs
+    |> makeAmendment
+    |> encodePretty
 
 
-makeAmendment ∷ String → Amendment
-makeAmendment tikaHtmlOutput =
-  let phrases = tikaHtmlOutput |> paragraphs
-  in Amendment {
+makeAmendment ∷ [String] → Amendment
+makeAmendment phrases =
+  Amendment {
     bill          = phrases |> findCitation |> makeBill,
     summary       = phrases |> findSummary,
     citations     = phrases |> findSectionNumbers,
