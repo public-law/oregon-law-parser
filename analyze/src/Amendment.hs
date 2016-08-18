@@ -6,11 +6,10 @@ module Amendment where
 import           Control.Arrow.Unicode
 import           Data.Aeson            (ToJSON)
 import           Data.List             (isPrefixOf)
-import           Data.String.Utils     (splitWs)
-import           Data.Time             (Day)
+import           Data.Time             (Day, defaultTimeLocale,
+                                        parseTimeOrError)
 import           GHC.Generics
-import           Text.Regex.TDFA
-
+import           StringOps
 
 type SectionNumber = String
 
@@ -45,33 +44,32 @@ isSummary sentence =
 
 makeBill ∷ String -> Bill
 makeBill citation =
-  let [chamber, number] = splitWs citation
+  let [chamber, number] = split citation
   in  Bill { billType = read chamber, billNumber = read number }
 
 
 findCitation ∷ String → String
 findCitation input =
-  getFirstMatch (input =~ "(HB|SB) [0-9]{4}")
+  firstMatch "(HB|SB) [0-9]{4}" input
 
 
 findYear ∷ String → Integer
 findYear input =
-  input =~ "OREGON LAWS [0-9]{4}"
-    |> getFirstMatch
+  input
+    |> firstMatch "OREGON LAWS [0-9]{4}"
     |> split -- I don't know how to capture a group yet
     |> last
     |> convert
 
 
+findEffectiveDate ∷ [String] -> Day
+findEffectiveDate paragraphs =
+  paragraphs
+    |> join
+    |> firstMatch "Effective date .+ [0-9]+, [0-9]{4}"
+    |> parseTimeOrError True defaultTimeLocale "Effective date %B %-d, %Y"
 
-getFirstMatch = getAllTextMatches ⋙ first
 
-
---
--- More-conventional function names
---
-first = head
-split = splitWs
 convert = read
 
 --
