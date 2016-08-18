@@ -3,17 +3,12 @@
 module Main where
 
 import           Amendment
-import           Control.Arrow.Unicode
 import           Control.Monad
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as B
 import           GHC.IO.Exception
-import           Prelude.Unicode
-import           StringOps
 import           System.Environment       (getArgs)
-import           Text.Regex.TDFA
 import           Tika
-
 
 
 main ∷ IO ()
