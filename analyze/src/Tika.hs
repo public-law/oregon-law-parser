@@ -10,17 +10,17 @@ import           Text.HandsomeSoup
 import           Text.XML.HXT.Core (getText, hread, runLA, (//>), (>>>))
 
 jarFileLocation = "/Users/robb/lib/tika-app.jar"
+javaExecutable  = "java"
 
 
 
 runTika ∷ String → IO (ExitCode, String, String)
 runTika pdfFilename =
-  readProcessWithExitCode "java" ["-jar", jarFileLocation, "--html", pdfFilename] ""
+  readProcessWithExitCode javaExecutable ["-jar", jarFileLocation, "--html", pdfFilename] ""
 
 
 paragraphs ∷ String → [String]
 paragraphs html =
-  -- TODO: Switch to TagSoup for the HTML parsing
   let allParagraphs = runLA (hread >>> css "p" //> getText) html
   in filter (not ∘ isPdfMetadata) allParagraphs
 

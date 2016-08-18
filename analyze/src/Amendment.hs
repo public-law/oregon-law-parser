@@ -3,13 +3,14 @@
 
 module Amendment where
 
-import           Control.Arrow.Unicode
-import           Data.Aeson            (ToJSON)
-import           Data.List             (isPrefixOf)
-import           Data.Time             (Day, defaultTimeLocale,
-                                        parseTimeOrError)
+import           Data.Aeson      (ToJSON)
+import           Data.List       (isPrefixOf, nub, sort)
+import           Data.Time       (Day, defaultTimeLocale, parseTimeOrError)
 import           GHC.Generics
 import           StringOps
+import           Text.Regex.TDFA
+
+
 
 type SectionNumber = String
 
@@ -48,14 +49,17 @@ makeBill citation =
   in  Bill { billType = read chamber, billNumber = read number }
 
 
-findCitation ∷ String → String
-findCitation input =
-  firstMatch "(HB|SB) [0-9]{4}" input
+findCitation ∷ [String] → String
+findCitation phrases =
+  phrases
+    |> join
+    |> firstMatch "(HB|SB) [0-9]{4}"
 
 
-findYear ∷ String → Integer
+findYear ∷ [String] → Integer
 findYear input =
   input
+    |> join
     |> firstMatch "OREGON LAWS [0-9]{4}"
     |> split -- I don't know how to capture a group yet
     |> last
@@ -70,7 +74,33 @@ findEffectiveDate paragraphs =
     |> parseTimeOrError True defaultTimeLocale "Effective date %B %-d, %Y"
 
 
+findSummary ∷ [String] → String
+findSummary phrases =
+  case filter isSummary phrases of
+    [aSummary] → cleanUp aSummary
+    _          → "(Summary is not available)"
+
+
+findSectionNumbers ∷ [String] → [SectionNumber]
+findSectionNumbers phrases =
+  phrases
+    |> map sectionNumbers
+    |> flatten
+    |> unique
+    |> sort
+
+
+sectionNumbers ∷ String → [String]
+sectionNumbers phrase =
+  -- Match ORS section numbers like 40.230 and 743A.144.
+  getAllTextMatches (phrase =~ "[0-9]{1,3}[A-C]?\\.[0-9]{3}")
+
+
+
+
 convert = read
+flatten = concat
+unique = nub
 
 --
 -- The Railway operator
