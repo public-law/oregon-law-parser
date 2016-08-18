@@ -53,7 +53,7 @@ makeAmendment html =
     citations  = phrases |> findSectionNumbers,
     bill       = html |> findCitation |> makeBill,
     year       = html |> findYear,
-    effectiveDate = fromGregorian 2016 5 5
+    effectiveDate = phrases |> findEffectiveDate
   }
 
 
