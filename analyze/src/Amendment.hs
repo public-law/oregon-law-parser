@@ -38,11 +38,6 @@ instance ToJSON Bill
 
 
 
-isSummary ∷ String → Bool
-isSummary sentence =
-  "Relating to" `isPrefixOf` sentence
-
-
 makeBill ∷ String -> Bill
 makeBill citation =
   let [chamber, number] = split citation
@@ -79,6 +74,11 @@ findSummary phrases =
   case filter isSummary phrases of
     [aSummary] → cleanUp aSummary
     _          → "(Summary is not available)"
+
+
+isSummary ∷ String → Bool
+isSummary sentence =
+  "Relating to" `isPrefixOf` sentence
 
 
 findSectionNumbers ∷ [String] → [SectionNumber]
