@@ -11,8 +11,8 @@ $ analyze 2016orLaw0001.pdf
     "bill": {
         "billNumber": 4047,
         "billType": "HB"
-    },
-    "effectiveDate": "2016-05-05",
+    }, 
+    "effectiveDate": "2016-03-01",
     "year": 2016,
     "citations": [
         "801.462",
@@ -26,7 +26,7 @@ $ analyze 2016orLaw0001.pdf
 ```
 
 
-from this:
+from this pdf:
 
 ![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
 
