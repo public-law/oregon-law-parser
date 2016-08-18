@@ -26,7 +26,7 @@ $ analyze 2016orLaw0001.pdf
 ```
 
 
-from this pdf:
+from this pdf format (Oregon session laws):
 
 ![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
 
