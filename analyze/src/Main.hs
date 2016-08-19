@@ -44,3 +44,10 @@ makeAmendment phrases =
     year          = phrases |> findYear,
     effectiveDate = phrases |> findEffectiveDate
   }
+
+  
+--
+-- The F# / Elixir pipe operator
+--
+(|>) ∷ t1 -> (t1 -> t2) -> t2
+(|>) x f = f x
