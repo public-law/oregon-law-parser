@@ -13,7 +13,6 @@ import           StringOps
 import           Text.Regex.TDFA
 
 
-
 type SectionNumber = String
 
 data BillType = HB | SB
@@ -61,7 +60,7 @@ findYear input =
     & firstMatch "OREGON LAWS [0-9]{4}"
     & splitWs -- I don't know how to capture a group yet
     & last
-    & convert
+    & read
 
 
 findChapter ∷ [String] → Integer
@@ -71,7 +70,7 @@ findChapter phrases =
     & firstMatch "Chap. [0-9]{1,3}"
     & splitWs
     & last
-    & convert
+    & read
 
 
 findEffectiveDate ∷ [String] -> Day
@@ -110,7 +109,5 @@ sectionNumbers phrase =
 
 
 
-
-convert = read
 flatten = concat
 unique = nub

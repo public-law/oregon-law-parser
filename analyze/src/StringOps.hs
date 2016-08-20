@@ -8,7 +8,6 @@ import           Data.String.Utils     (replace, split, strip)
 import           Text.Regex.TDFA
 
 
-
 cleanUp ∷ String → String
 cleanUp = fixWhitespace ⋙ fixHyphenation ⋙ strip ⋙ splitIntoSentences ⋙ first
 
