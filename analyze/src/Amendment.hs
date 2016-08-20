@@ -4,6 +4,7 @@
 module Amendment where
 
 import           Data.Aeson      (ToJSON)
+import           Data.Function   ((&))
 import           Data.List       (isPrefixOf, nub, sort)
 import           Data.Time       (Day, defaultTimeLocale, parseTimeOrError)
 import           GHC.Generics
@@ -38,7 +39,7 @@ instance ToJSON Bill
 
 
 
-makeBill ∷ String -> Bill
+makeBill ∷ String → Bill
 makeBill citation =
   let [chamber, number] = split citation
   in  Bill { billType = read chamber, billNumber = read number }
@@ -47,26 +48,26 @@ makeBill citation =
 findCitation ∷ [String] → String
 findCitation phrases =
   phrases
-    |> join
-    |> firstMatch "(HB|SB) [0-9]{4}"
+    & join
+    & firstMatch "(HB|SB) [0-9]{4}"
 
 
 findYear ∷ [String] → Integer
 findYear input =
   input
-    |> join
-    |> firstMatch "OREGON LAWS [0-9]{4}"
-    |> split -- I don't know how to capture a group yet
-    |> last
-    |> convert
+    & join
+    & firstMatch "OREGON LAWS [0-9]{4}"
+    & split -- I don't know how to capture a group yet
+    & last
+    & convert
 
 
 findEffectiveDate ∷ [String] -> Day
 findEffectiveDate paragraphs =
   paragraphs
-    |> join
-    |> firstMatch "Effective date .+ [0-9]+, [0-9]{4}"
-    |> parseTimeOrError True defaultTimeLocale "Effective date %B %-d, %Y"
+    & join
+    & firstMatch "Effective date .+ [0-9]+, [0-9]{4}"
+    & parseTimeOrError True defaultTimeLocale "Effective date %B %-d, %Y"
 
 
 findSummary ∷ [String] → String
@@ -84,10 +85,10 @@ isSummary sentence =
 findSectionNumbers ∷ [String] → [SectionNumber]
 findSectionNumbers phrases =
   phrases
-    |> map sectionNumbers
-    |> flatten
-    |> unique
-    |> sort
+    & map sectionNumbers
+    & flatten
+    & unique
+    & sort
 
 
 sectionNumbers ∷ String → [String]
@@ -101,9 +102,3 @@ sectionNumbers phrase =
 convert = read
 flatten = concat
 unique = nub
-
---
--- The Railway operator
---
-(|>) ∷ t1 -> (t1 -> t2) -> t2
-(|>) x f = f x

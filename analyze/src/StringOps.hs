@@ -3,7 +3,6 @@
 module StringOps where
 
 import           Control.Arrow.Unicode
-import           Data.List             (intercalate, isPrefixOf)
 import           Data.String.Utils     (replace, splitWs, strip)
 import           Text.Regex.TDFA
 
@@ -21,7 +20,7 @@ fixWhitespace ∷ String → String
 fixWhitespace = replace "\n" " "
 
 
-firstMatch ∷ String -> String -> String
+firstMatch ∷ String → String → String
 firstMatch regex input =
   getFirstMatch (input =~ regex)
 

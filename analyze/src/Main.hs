@@ -6,7 +6,10 @@ import           Amendment
 import           Control.Monad
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as B
+import           Data.Eq.Unicode
+import           Data.Function            ((&))
 import           GHC.IO.Exception
+import           Prelude.Unicode
 import           System.Environment       (getArgs)
 import           Tika
 
@@ -14,40 +17,31 @@ import           Tika
 main ∷ IO ()
 main = do
   args ← getArgs
-  when (length args /= 1) $
+  when (length args ≠ 1) $
     fail "Usage: analyze [filename]"
 
   let pdfFilename = head args
   (errCode, rawHTML, stderr') ← runTika pdfFilename
-  when (errCode /= ExitSuccess) $
+  when (errCode ≠ ExitSuccess) $
     fail stderr'
 
-  rawHTML
-    |> tikaOutputToJson
-    |> B.putStr
+  B.putStr ∘ tikaOutputToJson $ rawHTML
 
 
 tikaOutputToJson ∷ String → B.ByteString
 tikaOutputToJson html =
   html
-    |> paragraphs
-    |> makeAmendment
-    |> encodePretty
+    & paragraphs
+    & makeAmendment
+    & encodePretty
 
 
 makeAmendment ∷ [String] → Amendment
 makeAmendment phrases =
   Amendment {
-    bill          = phrases |> findCitation |> makeBill,
-    summary       = phrases |> findSummary,
-    citations     = phrases |> findSectionNumbers,
-    year          = phrases |> findYear,
-    effectiveDate = phrases |> findEffectiveDate
+    bill          = phrases & findCitation & makeBill,
+    summary       = phrases & findSummary,
+    citations     = phrases & findSectionNumbers,
+    year          = phrases & findYear,
+    effectiveDate = phrases & findEffectiveDate
   }
-
-  
---
--- The F# / Elixir pipe operator
---
-(|>) ∷ t1 -> (t1 -> t2) -> t2
-(|>) x f = f x
