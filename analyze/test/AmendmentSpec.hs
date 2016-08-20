@@ -36,6 +36,10 @@ spec = do
     it "returns just the year" $ do
       findYear ["OREGON LAWS 2016", "Some junk"] `shouldBe` 2016
 
+  describe "findChapter" $ do
+    it "can find it" $ do
+      findChapter ["Chap. 102"] `shouldBe` 102
+
   describe "findEffectiveDate" $ do
     it "picks out the right one" $ do
       let ps = ["Nope.", "Approved by the Governor March 3, 2016 Filed in the office of Secretary of State March 3, 2016 Effective date January 17, 2017"]

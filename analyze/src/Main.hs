@@ -42,5 +42,6 @@ makeAmendment phrases =
     summary       = phrases & findSummary,
     citations     = phrases & findSectionNumbers,
     year          = phrases & findYear,
-    effectiveDate = phrases & findEffectiveDate
+    effectiveDate = phrases & findEffectiveDate,
+    chapter       = phrases & findChapter
   }

@@ -30,7 +30,8 @@ data Amendment =
       citations     ∷ [SectionNumber],
       year          ∷ Integer,
       bill          ∷ Bill,
-      effectiveDate ∷ Day
+      effectiveDate ∷ Day,
+      chapter       ∷ Integer
     } deriving (Show, Generic)
 
 instance ToJSON Amendment
@@ -58,6 +59,16 @@ findYear input =
     & join
     & firstMatch "OREGON LAWS [0-9]{4}"
     & split -- I don't know how to capture a group yet
+    & last
+    & convert
+
+
+findChapter ∷ [String] → Integer
+findChapter phrases =
+  phrases
+    & join
+    & firstMatch "Chap. [0-9]{1,3}"
+    & split
     & last
     & convert
 
