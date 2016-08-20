@@ -3,10 +3,11 @@
 
 module Amendment where
 
-import           Data.Aeson      (ToJSON)
-import           Data.Function   ((&))
-import           Data.List       (isPrefixOf, nub, sort)
-import           Data.Time       (Day, defaultTimeLocale, parseTimeOrError)
+import           Data.Aeson        (ToJSON)
+import           Data.Function     ((&))
+import           Data.List         (isPrefixOf, nub, sort)
+import           Data.String.Utils (splitWs)
+import           Data.Time         (Day, defaultTimeLocale, parseTimeOrError)
 import           GHC.Generics
 import           StringOps
 import           Text.Regex.TDFA
@@ -42,7 +43,7 @@ instance ToJSON Bill
 
 makeBill ∷ String → Bill
 makeBill citation =
-  let [chamber, number] = split citation
+  let [chamber, number] = splitWs citation
   in  Bill { billType = read chamber, billNumber = read number }
 
 
@@ -58,7 +59,7 @@ findYear input =
   input
     & join
     & firstMatch "OREGON LAWS [0-9]{4}"
-    & split -- I don't know how to capture a group yet
+    & splitWs -- I don't know how to capture a group yet
     & last
     & convert
 
@@ -68,7 +69,7 @@ findChapter phrases =
   phrases
     & join
     & firstMatch "Chap. [0-9]{1,3}"
-    & split
+    & splitWs
     & last
     & convert
 
