@@ -9,7 +9,6 @@ import qualified Data.ByteString.Lazy     as B
 import           Data.Eq.Unicode
 import           Data.Function            ((&))
 import           GHC.IO.Exception
-import           Prelude.Unicode
 import           System.Environment       (getArgs)
 import           Tika
 
@@ -25,7 +24,7 @@ main = do
   when (errCode ≠ ExitSuccess) $
     fail stderr'
 
-  B.putStr ∘ tikaOutputToJson $ rawHTML
+  B.putStr $ tikaOutputToJson rawHTML
 
 
 tikaOutputToJson ∷ String → B.ByteString
