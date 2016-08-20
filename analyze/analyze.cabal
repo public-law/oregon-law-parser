@@ -1,6 +1,6 @@
 name:                analyze
 version:             0.1.0.0
-synopsis:            Simple project template from stack
+synopsis:            Extract metadata from an Oregon session law
 description:         Please see README.md
 homepage:            https://github.com/dogweather/analyze-ors-amendment-haskell
 license:             BSD3
