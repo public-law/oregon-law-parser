@@ -49,3 +49,7 @@ spec = do
     it "picks out the amended and repealed correctly" $ do
       let title = "Relating to student safety; creating new provisions; amending ORS 165.570 and sections 1 and 2, chapter 93, Oregon Laws 2014; repealing ORS 180.650 and 180.660; and declaring an emergency."
       findChangedStatutes title `shouldBe` ChangeSet { amended = ["165.570"], repealed = ["180.650", "180.660"] }
+
+    it "doesn't get fooled by 'and'" $ do
+      let title = "Relating to criminal impersonation; creating new provisions; and amending ORS 161.005 and 162.365."
+      findChangedStatutes title `shouldBe` ChangeSet { amended = ["161.005", "162.365"], repealed = [] }
