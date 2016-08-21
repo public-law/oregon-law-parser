@@ -5,7 +5,7 @@ module Amendment where
 
 import           Data.Aeson        (ToJSON)
 import           Data.Function     ((&))
-import           Data.List         (isPrefixOf, nub, sort)
+import           Data.List         (isPrefixOf, isSubsequenceOf, nub, sort)
 import           Data.String.Utils (split, splitWs)
 import           Data.Time         (Day, defaultTimeLocale, parseTimeOrError)
 import           GHC.Generics
@@ -113,7 +113,7 @@ findSectionNumbers phrases =
 findChangedStatutes ∷ String → ChangeSet
 findChangedStatutes title =
   let clauses = split "; " title
-      extractFrom section = findSectionNumbers ∘ filter (\c → section `isPrefixOf` c) $ clauses
+      extractFrom section = findSectionNumbers ∘ filter (\c → section `isSubsequenceOf` c) $ clauses
   in ChangeSet {
     amended  = extractFrom "amending",
     repealed = extractFrom "repealing"
