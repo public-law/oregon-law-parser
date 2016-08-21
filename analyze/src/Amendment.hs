@@ -113,9 +113,10 @@ findSectionNumbers phrases =
 findChangedStatutes ∷ String → ChangeSet
 findChangedStatutes title =
   let clauses = split "; " title
+      extractFrom section = findSectionNumbers ∘ filter (\c → section `isPrefixOf` c) $ clauses
   in ChangeSet {
-    amended  = sectionNumbers ∘ head ∘ filter (\c → "amending"  `isPrefixOf` c) $ clauses,
-    repealed = sectionNumbers ∘ head ∘ filter (\c → "repealing" `isPrefixOf` c) $ clauses
+    amended  = extractFrom "amending",
+    repealed = extractFrom "repealing"
   }
 
 
