@@ -6,17 +6,29 @@ module Amendment where
 import           Data.Aeson        (ToJSON)
 import           Data.Function     ((&))
 import           Data.List         (isPrefixOf, nub, sort)
-import           Data.String.Utils (splitWs)
+import           Data.String.Utils (split, splitWs)
 import           Data.Time         (Day, defaultTimeLocale, parseTimeOrError)
 import           GHC.Generics
 import           StringOps
 import           Text.Regex.TDFA
 
+data Amendment =
+  Amendment {
+    affectedSections ∷ ChangeSet,
+    bill             ∷ Bill,
+    chapter          ∷ Integer,
+    summary          ∷ String,
+    effectiveDate    ∷ Day,
+    year             ∷ Integer
+  } deriving (Show, Generic)
+
+data ChangeSet =
+  ChangeSet {
+    amended  ∷ [SectionNumber],
+    repealed ∷ [SectionNumber]
+  } deriving (Eq, Show, Generic)
 
 type SectionNumber = String
-
-data BillType = HB | SB
-  deriving (Read, Show, Eq, Generic)
 
 data Bill =
   Bill {
@@ -24,19 +36,14 @@ data Bill =
     billNumber ∷ Integer
   } deriving (Show, Eq, Generic)
 
-data Amendment =
-  Amendment {
-      summary       ∷ String,
-      citations     ∷ [SectionNumber],
-      year          ∷ Integer,
-      bill          ∷ Bill,
-      effectiveDate ∷ Day,
-      chapter       ∷ Integer
-    } deriving (Show, Generic)
+data BillType = HB | SB
+  deriving (Read, Show, Eq, Generic)
+
 
 instance ToJSON Amendment
-instance ToJSON BillType
 instance ToJSON Bill
+instance ToJSON BillType
+instance ToJSON ChangeSet
 
 
 
@@ -100,6 +107,15 @@ findSectionNumbers phrases =
     & flatten
     & unique
     & sort
+
+
+findChangedStatutes ∷ String → ChangeSet
+findChangedStatutes title =
+  let clauses = split "; " title
+  in ChangeSet {
+    amended = sectionNumbers (head (filter (\c → "amending" `isPrefixOf` c) clauses)),
+    repealed = sectionNumbers (head (filter (\c → "repealing" `isPrefixOf` c) clauses))
+  }
 
 
 sectionNumbers ∷ String → [String]

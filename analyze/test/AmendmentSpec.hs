@@ -44,3 +44,8 @@ spec = do
     it "picks out the right one" $ do
       let ps = ["Nope.", "Approved by the Governor March 3, 2016 Filed in the office of Secretary of State March 3, 2016 Effective date January 17, 2017"]
       (findEffectiveDate ps) `shouldBe` (fromGregorian 2017 1 17)
+
+  describe "findChangedStatutes" $ do
+    it "picks out the amended and repealed correctly" $ do
+      let title = "Relating to student safety; creating new provisions; amending ORS 165.570 and sections 1 and 2, chapter 93, Oregon Laws 2014; repealing ORS 180.650 and 180.660; and declaring an emergency."
+      findChangedStatutes title `shouldBe` ChangeSet { amended = ["165.570"], repealed = ["180.650", "180.660"] }

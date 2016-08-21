@@ -38,10 +38,10 @@ tikaOutputToJson html =
 makeAmendment ∷ [String] → Amendment
 makeAmendment phrases =
   Amendment {
-    bill          = phrases & findCitation & makeBill,
-    summary       = phrases & findSummary,
-    citations     = phrases & findSectionNumbers,
-    year          = phrases & findYear,
-    effectiveDate = phrases & findEffectiveDate,
-    chapter       = phrases & findChapter
+    bill             = phrases & findCitation & makeBill,
+    summary          = phrases & findSummary,
+    affectedSections = phrases & findSummary & findChangedStatutes,
+    year             = phrases & findYear,
+    effectiveDate    = phrases & findEffectiveDate,
+    chapter          = phrases & findChapter
   }
