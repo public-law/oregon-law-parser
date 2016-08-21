@@ -9,6 +9,7 @@ import           Data.List         (isPrefixOf, nub, sort)
 import           Data.String.Utils (split, splitWs)
 import           Data.Time         (Day, defaultTimeLocale, parseTimeOrError)
 import           GHC.Generics
+import           Prelude.Unicode
 import           StringOps
 import           Text.Regex.TDFA
 
@@ -113,8 +114,8 @@ findChangedStatutes ∷ String → ChangeSet
 findChangedStatutes title =
   let clauses = split "; " title
   in ChangeSet {
-    amended = sectionNumbers (head (filter (\c → "amending" `isPrefixOf` c) clauses)),
-    repealed = sectionNumbers (head (filter (\c → "repealing" `isPrefixOf` c) clauses))
+    amended  = sectionNumbers ∘ head ∘ filter (\c → "amending"  `isPrefixOf` c) $ clauses,
+    repealed = sectionNumbers ∘ head ∘ filter (\c → "repealing" `isPrefixOf` c) $ clauses
   }
 
 
