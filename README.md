@@ -14,14 +14,12 @@ $ analyze 2016orLaw0001.pdf
     }, 
     "effectiveDate": "2016-03-01",
     "year": 2016,
-    "citations": [
-        "801.462",
-        "810.180",
-        "810.243",
-        "811.109",
-        "811.111",
-        "811.124"
-    ]
+    "affectedSections": {
+        "repealed": [],
+        "amended": [
+            "811.111"
+        ]
+    }
 }
 ```
 
