@@ -3,6 +3,7 @@
 module Main where
 
 import           Amendment
+import           Control.Arrow.Unicode
 import           Control.Monad
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString.Lazy     as B
@@ -28,11 +29,7 @@ main = do
 
 
 tikaOutputToJson ∷ String → B.ByteString
-tikaOutputToJson html =
-  html
-    |> paragraphs
-    |> makeAmendment
-    |> encodePretty
+tikaOutputToJson = paragraphs ⋙ makeAmendment ⋙ encodePretty
 
 
 makeAmendment ∷ [String] → Amendment
