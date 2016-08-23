@@ -13,7 +13,7 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 executable analyze
-  ghc-options:         -fno-warn-missing-signatures
+  ghc-options:         -Wall -fno-warn-missing-signatures
   hs-source-dirs:      src
   main-is:             Main.hs
   other-modules:       StringOps, Amendment, Tika
@@ -34,7 +34,7 @@ executable analyze
                        , text
 
 test-suite tests
-  ghc-options:         -fno-warn-missing-signatures
+  ghc-options:         -Wall -fno-warn-missing-signatures
   hs-source-dirs:      test, src
   main-is:             Spec.hs
   other-modules:       Amendment, AmendmentSpec, StringOps, StringOpsSpec, Tika

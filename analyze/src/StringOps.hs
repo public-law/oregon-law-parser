@@ -36,5 +36,8 @@ getFirstMatch = getAllTextMatches ⋙ first
 --
 -- More-conventional function names
 --
+first ∷ [a] → a
 first = head
+
+join ∷ [String] → String
 join = unwords
