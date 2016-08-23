@@ -30,18 +30,21 @@ main = do
 tikaOutputToJson ∷ String → B.ByteString
 tikaOutputToJson html =
   html
-    & paragraphs
-    & makeAmendment
-    & encodePretty
+    |> paragraphs
+    |> makeAmendment
+    |> encodePretty
 
 
 makeAmendment ∷ [String] → Amendment
 makeAmendment phrases =
   Amendment {
-    bill             = phrases & findCitation & makeBill,
-    summary          = phrases & findSummary,
-    affectedSections = phrases & findSummary & findChangedStatutes,
-    year             = phrases & findYear,
-    effectiveDate    = phrases & findEffectiveDate,
-    chapter          = phrases & findChapter
+    bill             = phrases |> findCitation |> makeBill,
+    summary          = phrases |> findSummary,
+    affectedSections = phrases |> findSummary |> findChangedStatutes,
+    year             = phrases |> findYear,
+    effectiveDate    = phrases |> findEffectiveDate,
+    chapter          = phrases |> findChapter
   }
+
+-- Function application operator from Elm, F#, and Elixir
+(|>) = (&)
