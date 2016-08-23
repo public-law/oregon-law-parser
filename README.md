@@ -1,4 +1,4 @@
-# analyze-ors-amendment-haskell
+# analyze-oregon-law
 
 A command line app, `analyze`, which extracts this information:
 
