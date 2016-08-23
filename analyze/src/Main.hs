@@ -17,15 +17,15 @@ import           Tika
 main ∷ IO ()
 main = do
   args ← getArgs
-  when (length args ≠ 1) $
-    fail "Usage: analyze [filename]"
+  when (length args ≠ 1)
+    (fail "Usage: analyze [filename]")
 
   let pdfFilename = head args
   (errCode, rawHTML, stderr') ← runTika pdfFilename
-  when (errCode ≠ ExitSuccess) $
-    fail stderr'
+  when (errCode ≠ ExitSuccess)
+    (fail stderr')
 
-  B.putStr $ tikaOutputToJson rawHTML
+  B.putStr (tikaOutputToJson rawHTML)
 
 
 tikaOutputToJson ∷ String → B.ByteString
