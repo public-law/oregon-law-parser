@@ -9,7 +9,11 @@ import           Text.Regex.TDFA
 
 
 cleanUp ∷ String → String
-cleanUp = fixWhitespace ⋙ fixHyphenation ⋙ strip ⋙ splitIntoSentences ⋙ first
+cleanUp = fixWhitespace
+  ⋙ fixHyphenation
+  ⋙ strip
+  ⋙ splitIntoSentences
+  ⋙ first
 
 
 fixWhitespace ∷ String → String
@@ -22,7 +26,7 @@ fixHyphenation = replace "- " ""
 
 splitIntoSentences ∷ String → [String]
 splitIntoSentences input =
-  fmap (\s → if "." `isSuffixOf` s then s else s ++ ".") (split ". " input)
+  map (\s → if "." `isSuffixOf` s then s else s ++ ".") (split ". " input)
 
 
 firstMatch ∷ String → String → String

@@ -81,7 +81,7 @@ findChapter phrases =
     & read
 
 
-findEffectiveDate ∷ [String] -> Day
+findEffectiveDate ∷ [String] → Day
 findEffectiveDate paragraphs =
   paragraphs
     & join
