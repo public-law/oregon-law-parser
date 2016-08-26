@@ -16,7 +16,7 @@ javaExecutable = "java"
 
 runTika ∷ String → IO (ExitCode, String, String)
 runTika pdfFilename =
-  readProcessWithExitCode javaExecutable ["-jar", jarFileLocation, "--html", pdfFilename] ""
+  readProcessWithExitCode javaExecutable ["-jar", jarFile, "--html", pdfFilename] ""
 
 
 paragraphs ∷ String → [String]
