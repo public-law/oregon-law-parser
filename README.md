@@ -23,7 +23,7 @@ $ analyze 2016orLaw0001.pdf
 }
 ```
 
-which a Rails app imports to [display like this](http://www.oregonlaws.org/ors/811.111) from [an Oregon session law in PDF format](https://www.oregonlegislature.gov/bills_laws/lawsstatutes/2016orLaw0001.pdf):
+which a Rails app imports to [display on a web page like this](http://www.oregonlaws.org/ors/811.111) from [an Oregon session law in PDF format](https://www.oregonlegislature.gov/bills_laws/lawsstatutes/2016orLaw0001.pdf):
 
 ![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
 
