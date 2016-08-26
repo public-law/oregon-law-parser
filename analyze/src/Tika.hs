@@ -9,8 +9,8 @@ import           System.Process    (readProcessWithExitCode)
 import           Text.HandsomeSoup
 import           Text.XML.HXT.Core (getText, hread, runLA, (//>), (>>>))
 
-jarFileLocation = "/Users/robb/lib/tika-app.jar"
-javaExecutable  = "java"
+jarFile        = "/Users/robb/lib/tika-app.jar"
+javaExecutable = "java"
 
 
 
