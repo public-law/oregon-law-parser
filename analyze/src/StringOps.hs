@@ -1,19 +1,18 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
-module StringOps where
+module StringOps(cleanUp, firstMatch, join, fixHyphenation, fixWhitespace) where
 
 import           Control.Arrow.Unicode
 import           Data.List             (isSuffixOf)
-import           Data.String.Utils     (replace, split, strip)
+import           Data.String.Utils     (replace, split)
 import           Text.Regex.TDFA
 
 
 cleanUp ∷ String → String
 cleanUp = fixWhitespace
-  ⋙ fixHyphenation
-  ⋙ strip
-  ⋙ splitIntoSentences
-  ⋙ first
+          ⋙ fixHyphenation
+          ⋙ splitIntoSentences
+          ⋙ first
 
 
 fixWhitespace ∷ String → String
@@ -26,9 +25,17 @@ fixHyphenation = replace "- " ""
 
 splitIntoSentences ∷ String → [String]
 splitIntoSentences input =
-  map (\s → if "." `isSuffixOf` s then s else s ++ ".") (split ". " input)
+  map ensureEndsWithPeriod (split ". " input)
 
 
+ensureEndsWithPeriod :: String -> String
+ensureEndsWithPeriod sentence =
+  if "." `isSuffixOf` sentence then sentence else sentence ++ "."
+
+
+--
+-- Regex helpers
+--
 firstMatch ∷ String → String → String
 firstMatch regex input =
   getFirstMatch (input =~ regex)
