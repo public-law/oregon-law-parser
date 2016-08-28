@@ -24,8 +24,7 @@ fixHyphenation = replace "- " ""
 
 
 splitIntoSentences ∷ String → [String]
-splitIntoSentences input =
-  map ensureEndsWithPeriod (split ". " input)
+splitIntoSentences = split ". " ⋙ map ensureEndsWithPeriod
 
 
 ensureEndsWithPeriod :: String -> String
