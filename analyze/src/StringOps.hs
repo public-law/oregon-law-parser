@@ -30,7 +30,7 @@ splitIntoSentences input =
 
 ensureEndsWithPeriod :: String -> String
 ensureEndsWithPeriod sentence =
-  if "." `isSuffixOf` sentence then sentence else sentence ++ "."
+  sentence ++ (if "." `isSuffixOf` sentence then "" else ".")
 
 
 --
