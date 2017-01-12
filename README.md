@@ -27,9 +27,7 @@ $ analyze 2016orLaw0001.pdf
 }
 ```
 
-A Rails app then imports it to [create a notice like this](http://www.oregonlaws.org/ors/811.111) 
-
-See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs).
+A Rails app then imports it to [create a notice like this](http://www.oregonlaws.org/ors/811.111) See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs) for the top-level code.
 
 
 # An intermediate step to improve flexibility
