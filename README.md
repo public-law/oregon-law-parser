@@ -1,6 +1,10 @@
 # analyze-oregon-law
 
-A command line app, `analyze`, which extracts this information:
+A command line app, `analyze`, which pulls in [an Oregon session law in PDF format](https://www.oregonlegislature.gov/bills_laws/lawsstatutes/2016orLaw0001.pdf):
+
+![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
+
+and produces this metadata in JSON:
 
 
 ```sh
@@ -23,9 +27,7 @@ $ analyze 2016orLaw0001.pdf
 }
 ```
 
-which a Rails app imports to [display on a web page like this](http://www.oregonlaws.org/ors/811.111) from [an Oregon session law in PDF format](https://www.oregonlegislature.gov/bills_laws/lawsstatutes/2016orLaw0001.pdf):
-
-![image](https://raw.githubusercontent.com/dogweather/analyze-ors-amendment-haskell/master/fixtures/typical-pdf.png)
+A Rails app then imports it to [create a notice like this](http://www.oregonlaws.org/ors/811.111) 
 
 See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs).
 
