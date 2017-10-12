@@ -30,7 +30,7 @@ $ analyze 2016orLaw0001.pdf
 A Rails app then imports it to [create a notice like this](http://www.oregonlaws.org/ors/811.111) See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs) for the top-level code.
 
 
-# An intermediate step to improve flexibility
+# Improving flexibility via this intermediate step
 
 In the past, I've done this kind of coding in the same project as the rest of the application. E.g., here, it'd be a Ruby rake task because the app is in Rails.
 
