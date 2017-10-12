@@ -27,7 +27,12 @@ $ analyze 2016orLaw0001.pdf
 }
 ```
 
-A Rails app then imports it to [create a notice like this](http://www.oregonlaws.org/ors/811.111) See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs) for the top-level code.
+A web app can easily import data like this. Here's one way it's displayed:
+
+![image](https://raw.githubusercontent.com/dogweather/analyze-oregon-law-haskell/master/fixtures/end-result.png)
+
+
+See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs) for the top-level code.
 
 
 # Improving flexibility via this intermediate step
