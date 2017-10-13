@@ -6,19 +6,32 @@ import           Cli
 import           Data.List         (isPrefixOf)
 import           GHC.IO.Exception
 import           Prelude.Unicode
+import           System.Environment (lookupEnv)
 import           System.Process    (readProcessWithExitCode)
 import           Text.HandsomeSoup
 import           Text.XML.HXT.Core (getText, hread, runLA, (//>), (>>>))
 
 
+tikaClass ∷ String
+tikaClass = "org.apache.tika.cli.TikaCLI"
+
+
 runTika ∷ Options → IO (ExitCode, String, String)
-runTika Options{..} =
-  readProcessWithExitCode
-    javaExecutable
-    [ "-jar", tikaJarPath
-    , "--html", inputFilePath
-    ]
-    ""
+runTika Options{..} = do
+  classpath <- lookupEnv "CLASSPATH"
+  case (classpath, tikaJarPath) of
+    (_, Just path) -> runWith ["-cp", path]
+    (Just _,    _) -> runWith []
+    _              ->
+      return ( ExitFailure 1
+             , ""
+             , "Either CLASSPATH or '--tika-jar' should be defined!" )
+  where
+    runWith params =
+      readProcessWithExitCode
+        javaExecutable
+        (params ++ [tikaClass, "--html", inputFilePath])
+        ""
 
 
 paragraphs ∷ String → [String]

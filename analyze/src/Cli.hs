@@ -8,7 +8,7 @@ import           Options.Applicative
 data Options =
   Options {
     inputFilePath  ∷ FilePath,
-    tikaJarPath    ∷ FilePath,
+    tikaJarPath    ∷ Maybe FilePath,
     javaExecutable ∷ String
   } deriving (Show)
 
@@ -31,12 +31,12 @@ optionsP =
   <$> argument str
      ( metavar "FILENAME"
     <> help    "Path to .PFD-file" )
-  <*> strOption
-     ( short   't'
-    <> long    "tika-jar"
-    <> value   "/usr/local/lib/tika-app.jar"
-    <> metavar "PATH_TO_JAR"
-    <> help    "Path to Tika's .JAR-file" )
+  <*> optional
+     ( strOption
+        ( short   't'
+       <> long    "tika-jar"
+       <> metavar "PATH_TO_JAR"
+       <> help    "Path to Tika's .JAR-file" ) )
   <*> strOption
      ( short   'j'
     <> long    "java-executable"
