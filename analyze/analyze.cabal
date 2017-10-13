@@ -16,19 +16,22 @@ executable analyze
   ghc-options:         -Wall -fno-warn-missing-signatures
   hs-source-dirs:      src
   main-is:             Main.hs
-  other-modules:       StringOps, Amendment, Tika
+  other-modules:       Amendment
+                       , Cli
+                       , StringOps
+                       , Tika
   default-language:    Haskell2010
+  default-extensions:  UnicodeSyntax
   build-depends:       base >= 4.7 && < 5
                        , aeson
                        , aeson-pretty
                        , base-unicode-symbols
                        , bytestring
                        , HandsomeSoup
-                       , hspec
                        , hxt
                        , MissingH
+                       , optparse-applicative
                        , process
-                       , QuickCheck
                        , regex-tdfa
                        , time
                        , text
@@ -40,6 +43,7 @@ test-suite tests
   other-modules:       Amendment, AmendmentSpec, StringOps, StringOpsSpec, Tika
   type:                exitcode-stdio-1.0
   default-language:    Haskell2010
+  default-extensions:  UnicodeSyntax
   build-depends:       base >= 4.7 && < 5
                        , aeson
                        , aeson-pretty

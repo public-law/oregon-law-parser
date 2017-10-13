@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 module Main where
 
 import           Amendment
@@ -10,18 +8,13 @@ import qualified Data.ByteString.Lazy     as B
 import           Data.Eq.Unicode
 import           Data.Function            ((&))
 import           GHC.IO.Exception
-import           System.Environment       (getArgs)
+import           Cli
 import           Tika
 
 
 main ∷ IO ()
 main = do
-  args ← getArgs
-  when (length args ≠ 1)
-    (fail "Usage: analyze [filename]")
-
-  let pdfFilename = head args
-  (errCode, rawHTML, stderr') ← runTika pdfFilename
+  (errCode, rawHTML, stderr') ← runTika =<< getOptions
   when (errCode ≠ ExitSuccess)
     (fail stderr')
 
