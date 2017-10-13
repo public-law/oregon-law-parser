@@ -21,7 +21,7 @@ runTika Options{..} = do
   classpath <- lookupEnv "CLASSPATH"
   case (classpath, tikaJarPath) of
     (_, Just path) -> runWith ["-jar", path]
-    (Just _,    _) -> runWith []
+    (Just _,    _) -> runWith [tikaClass]
     _              ->
       return ( ExitFailure 1
              , ""
@@ -30,7 +30,7 @@ runTika Options{..} = do
     runWith params =
       readProcessWithExitCode
         javaExecutable
-        (params ++ [tikaClass, "--html", inputFilePath])
+        (params ++ ["--html", inputFilePath])
         ""
 
 
