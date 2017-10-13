@@ -20,7 +20,7 @@ runTika ∷ Options → IO (ExitCode, String, String)
 runTika Options{..} = do
   classpath <- lookupEnv "CLASSPATH"
   case (classpath, tikaJarPath) of
-    (_, Just path) -> runWith ["-cp", path]
+    (_, Just path) -> runWith ["-jar", path]
     (Just _,    _) -> runWith []
     _              ->
       return ( ExitFailure 1
