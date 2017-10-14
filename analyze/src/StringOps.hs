@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 module StringOps(cleanUp, firstMatch, join, fixHyphenation, fixWhitespace) where
 
 import           Control.Arrow.Unicode

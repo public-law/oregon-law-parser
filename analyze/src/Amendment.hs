@@ -1,5 +1,4 @@
 {-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE UnicodeSyntax #-}
 
 module Amendment where
 
