@@ -9,7 +9,7 @@ A command line app, `analyze`, which pulls in [an Oregon session law in PDF form
 and produces this metadata in JSON:
 
 
-```json
+```bash
 $ analyze 2016orLaw0001.pdf
 
 {
