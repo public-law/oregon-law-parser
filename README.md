@@ -29,7 +29,7 @@ $ analyze 2016orLaw0001.pdf
 }
 ```
 
-A web app can easily import data like this. Here's one way it's displayed:
+A web app can easily import this and display it:
 
 ![image](https://raw.githubusercontent.com/dogweather/analyze-oregon-law-haskell/master/fixtures/end-result.png)
 
