@@ -39,6 +39,6 @@ See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/m
 
 # Improving flexibility via this intermediate step
 
-In the past, I've done this kind of coding in the same project as the rest of the application. E.g., here, it'd be a Ruby rake task because the app is in Rails.
+In the past, this kind of coding was in the same project as the rest of the application. E.g., here, it'd be a Ruby rake task because the app is in Rails.
 
 But this new, separate repo decouples the data import process: instead of writing more Ruby code for my Rails app, the JSON data is a go-between format. In this way I can, e.g. use with other languages like Haskell when appropriate.
