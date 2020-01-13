@@ -79,12 +79,17 @@ findYear input =
 
 findChapter ∷ [String] → Integer
 findChapter phrases =
-  phrases
-    & join
-    & firstMatch "Chap. [0-9]{1,3}"
-    & splitWs
-    & last
-    & read
+  let match = 
+        phrases
+        & join
+        & firstMatch "Chap. [0-9]{1,3}"
+
+  in case(match) of
+    Just s -> s
+              & splitWs
+              & last
+              & read
+    Nothing -> error ("Could not find Chapter in " ++ (show phrases))
 
 
 findEffectiveDate ∷ [String] → Day
