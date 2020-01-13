@@ -55,9 +55,12 @@ makeBill citation =
 
 findCitation ∷ [String] → String
 findCitation phrases =
-  phrases
-    & join
-    & firstMatch "(HB|SB) [0-9]{4}"
+  let match = phrases
+        & join
+        & firstMatch "(HB|SB) [0-9]{4}"
+  in case(match) of
+    Just s -> s
+    Nothing -> error "Could not find citation in " ++ phrases
 
 
 findYear ∷ [String] → Integer
