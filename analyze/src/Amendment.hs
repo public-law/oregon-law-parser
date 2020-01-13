@@ -65,12 +65,16 @@ findCitation phrases =
 
 findYear ∷ [String] → Integer
 findYear input =
-  input
-    & join
-    & firstMatch "OREGON LAWS [0-9]{4}"
-    & splitWs -- I don't know how to capture a group yet
-    & last
-    & read
+  let match = input
+        & join
+        & firstMatch "OREGON LAWS [0-9]{4}"
+
+  in case(match) of
+    Just s -> s
+              & splitWs -- I don't know how to capture a group yet
+              & last
+              & read
+    Nothing -> error ("Could not find year in " ++ (show input))
 
 
 findChapter ∷ [String] → Integer
