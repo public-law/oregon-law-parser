@@ -7,10 +7,14 @@ import           Text.Regex.TDFA
 
 
 cleanUp ∷ String → String
-cleanUp = fixWhitespace
-          ⋙ fixHyphenation
-          ⋙ splitIntoSentences
-          ⋙ first
+cleanUp a_string =
+  let sentences =
+        fixWhitespace
+        ⋙  fixHyphenation
+        ⋙  splitIntoSentences
+  in case (sentences a_string) of
+    (x:_) -> x
+    []      -> ""
 
 
 fixWhitespace ∷ String → String
@@ -22,7 +26,7 @@ fixHyphenation = replace "- " ""
 
 
 splitIntoSentences ∷ String → [String]
-splitIntoSentences = split ". " ⋙ map ensureEndsWithPeriod
+splitIntoSentences = split ". " ⋙  map ensureEndsWithPeriod
 
 
 ensureEndsWithPeriod :: String -> String
@@ -33,19 +37,16 @@ ensureEndsWithPeriod sentence =
 --
 -- Regex helpers
 --
-firstMatch ∷ String → String → String
+firstMatch ∷ String → String → Maybe String
 firstMatch regex input =
-  getFirstMatch (input =~ regex)
+  case (input =~ regex :: String) of
+    "" -> Nothing
+    x -> Just x
 
-
-getFirstMatch = getAllTextMatches ⋙ first
 
 
 --
 -- More-conventional function names
 --
-first ∷ [a] → a
-first = head
-
 join ∷ [String] → String
 join = unwords
