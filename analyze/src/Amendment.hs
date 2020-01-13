@@ -60,7 +60,7 @@ findCitation phrases =
         & firstMatch "(HB|SB) [0-9]+"
   in case(maybeMatch) of
     Just s -> s
-    Nothing -> error ("Could not find citation in " ++ (show phrases))
+    Nothing -> error ("Could not find a citation")
 
 
 findYear ∷ [String] → Integer
@@ -74,7 +74,7 @@ findYear input =
               & splitWs -- I don't know how to capture a group yet
               & last
               & read
-    Nothing -> error ("Could not find year in " ++ (show input))
+    Nothing -> error ("Could not find the year")
 
 
 findChapter ∷ [String] → Integer
@@ -89,7 +89,7 @@ findChapter phrases =
               & splitWs
               & last
               & read
-    Nothing -> error ("Could not find Chapter in " ++ (show phrases))
+    Nothing -> error ("Could not find the Chapter")
 
 
 findEffectiveDate ∷ [String] → Day
@@ -100,7 +100,7 @@ findEffectiveDate paragraphs =
         & firstMatch "Effective date .+ [0-9]+, [0-9]{4}"
   in case (maybeMatch) of
     Just s -> parseTimeOrError True defaultTimeLocale "Effective date %B %-d, %Y" s
-    Nothing -> error ("Could not find Effective Date in " ++ (show paragraphs))
+    Nothing -> error ("Could not find the Effective Date")
 
 
 findSummary ∷ [String] → String
