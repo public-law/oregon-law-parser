@@ -60,7 +60,7 @@ findCitation phrases =
         & firstMatch "(HB|SB) [0-9]{4}"
   in case(match) of
     Just s -> s
-    Nothing -> error "Could not find citation in " ++ phrases
+    Nothing -> error ("Could not find citation in " ++ (show phrases))
 
 
 findYear ∷ [String] → Integer
