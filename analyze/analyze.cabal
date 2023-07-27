@@ -49,6 +49,7 @@ test-suite tests
                        , aeson-pretty
                        , base-unicode-symbols
                        , bytestring
+                       , optparse-applicative
                        , HandsomeSoup
                        , hspec
                        , hxt
