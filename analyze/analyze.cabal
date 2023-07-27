@@ -40,7 +40,7 @@ test-suite tests
   ghc-options:         -Wall -fno-warn-missing-signatures
   hs-source-dirs:      test, src
   main-is:             Spec.hs
-  other-modules:       Amendment, AmendmentSpec, StringOps, StringOpsSpec, Tika
+  other-modules:       Amendment, AmendmentSpec, StringOps, StringOpsSpec, Tika, Cli
   type:                exitcode-stdio-1.0
   default-language:    Haskell2010
   default-extensions:  UnicodeSyntax
