@@ -52,6 +52,7 @@ test-suite tests
                        , optparse-applicative
                        , HandsomeSoup
                        , hspec
+                       , hspec-discover
                        , hxt
                        , MissingH
                        , process
