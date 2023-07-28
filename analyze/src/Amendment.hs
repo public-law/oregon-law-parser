@@ -58,9 +58,9 @@ findCitation phrases =
   let maybeMatch = phrases
         & join
         & firstMatch "(HB|SB) [0-9]+"
-  in case(maybeMatch) of
+  in case maybeMatch of
     Just s -> s
-    Nothing -> error ("Could not find a citation")
+    Nothing -> error "Could not find a citation"
 
 
 findYear ∷ [String] → Integer
@@ -69,12 +69,12 @@ findYear input =
         & join
         & firstMatch "OREGON LAWS [0-9]{4}"
 
-  in case(maybeMatch) of
+  in case maybeMatch of
     Just s -> s
               & splitWs -- I don't know how to capture a group yet
               & last
               & read
-    Nothing -> error ("Could not find the year")
+    Nothing -> error "Could not find the year"
 
 
 findChapter ∷ [String] → Integer
@@ -84,12 +84,12 @@ findChapter phrases =
         & join
         & firstMatch "Chap. [0-9]{1,3}"
 
-  in case(maybeMatch) of
+  in case maybeMatch of
     Just s -> s
               & splitWs
               & last
               & read
-    Nothing -> error ("Could not find the Chapter")
+    Nothing -> error "Could not find the Chapter"
 
 
 findEffectiveDate ∷ [String] → Day
@@ -98,9 +98,9 @@ findEffectiveDate paragraphs =
         paragraphs
         & join
         & firstMatch "Effective date .+ [0-9]+, [0-9]{4}"
-  in case (maybeMatch) of
+  in case maybeMatch of
     Just s -> parseTimeOrError True defaultTimeLocale "Effective date %B %-d, %Y" s
-    Nothing -> error ("Could not find the Effective Date")
+    Nothing -> error "Could not find the Effective Date"
 
 
 findSummary ∷ [String] → String
