@@ -29,8 +29,6 @@ $ analyze 2016orLaw0001.pdf
 
 A web app can easily import this and display it:
 
-![image](https://raw.githubusercontent.com/dogweather/analyze-oregon-law-haskell/master/fixtures/end-result.png)
-
 <img width="473" alt="Screenshot 2023-07-29 at 4 21 35 PM" src="https://github.com/public-law/oregon-law-parser/assets/150670/c6220f66-e370-4e7f-b4e9-704a4bdc540a">
 
 See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs) for the top-level code.
