@@ -32,6 +32,7 @@ A web app can easily import this and display it:
 <img width="586" alt="Screenshot 2023-10-10 at 8 32 32 PM" src="https://github.com/public-law/oregon-law-parser/assets/150670/29ebe973-53e7-48b9-9f5f-52cef04e8b0f">
 
 
+Here [it is](https://oregon.public.law/statutes/ors_469.233) in production. 
 See [Main.hs](https://github.com/dogweather/analyze-ors-amendment-haskell/blob/master/analyze/src/Main.hs) for the top-level code.
 
 
