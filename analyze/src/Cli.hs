@@ -4,7 +4,6 @@ module Cli
   ) where
 
 import           Options.Applicative
-import           Data.Semigroup      ((<>))
 
 
 data Options =

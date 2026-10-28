@@ -49,8 +49,11 @@ instance ToJSON ChangeSet
 
 makeBill ∷ String → Bill
 makeBill citation =
-  let [chamber, number] = splitWs citation
-  in  Bill { billType = read chamber, billNumber = read number }
+  case splitWs citation of
+    [chamber, number] →
+      Bill { billType = read chamber, billNumber = read number }
+    _ →
+      error ("Could not parse bill citation: " ++ citation)
 
 
 findCitation ∷ [String] → String
